@@ -20,14 +20,30 @@ public class Spawner : MonoBehaviour
     [Header("Layer Of MachingBoxes")]
     public  LayerMask _MachingBoxLayer;
 
+    [Header("Maximum blocks to start with")]
+    [Range(20, 80)]
+    public int _MaximumInitialBoxes = 40;
+    [Header("ExtraBoxes")]
+    [Tooltip("Will Affect Spawning Rate Also")]
+    [Range(1, 30)]
+    public int _ExtraBoxes = 20;
+
     [Header("Distance Between Boxes")]
     [Range(0.2f, 4)]
     public float _DistanceBox;
-
     private float timer;
 
+ 
+
     private Vector3 _CurrentSpawnPoint;
-    
+
+    private void Awake()
+    {
+        for (int i = 0; i <= _MaximumInitialBoxes; i++)
+        {
+            Spawn();
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -51,15 +67,19 @@ public class Spawner : MonoBehaviour
     }
     private void SpawnObject()
     {
-        if (timer > _SpawnTime)
+        if (timer > _SpawnTime||timer.Equals(0))
         {
             timer = 0;
-            Instantiate(
-                _MachingBoxes[Random.Range(0,_MachingBoxes.Length + 1)]
-                , SpawnPoint()
-                , Quaternion.identity
-                );
+            Spawn();
         }
+    }
+    private void Spawn()
+    {
+        Instantiate(
+                   _MachingBoxes[Random.Range(0, _MachingBoxes.Length)]
+                   , SpawnPoint()
+                   , Quaternion.identity
+                   );
     }
     private Vector3  SpawnPoint()
     {

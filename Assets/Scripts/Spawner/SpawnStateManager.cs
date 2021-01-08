@@ -5,15 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(Spawner))]
 public class SpawnStateManager : MonoBehaviour
 {   
-    [Header("ExtraBoxes")]
-    [Tooltip("Will Affect Spawning Rate Also")]
-    [Range(1,30)]
-    public int _ExtraBoxes = 20;
+   
     private Spawner spawner;
+    private void Awake()
+    {
+        spawner = GetComponent<Spawner>();
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        spawner = GetComponent<Spawner>();
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class SpawnStateManager : MonoBehaviour
     void CheckIfReachedMaximumHeight()
     { 
         Collider2D[] MachingBoxes = Physics2D.OverlapCircleAll(transform.position, 5, spawner._MachingBoxLayer);
-        if (MachingBoxes.Length >= 20)
+        if (MachingBoxes.Length >= spawner._ExtraBoxes)
         {
             SpawnerStates.ChangeState(SpawnerStates.States.DoNothing);
         }
