@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
     public int _MaximumInitialBoxes = 40;
     [Header("ExtraBoxes")]
     [Tooltip("Will Affect Spawning Rate Also")]
-    [Range(1, 30)]
+    [Range(1, 160)]
     public int _ExtraBoxes = 20;
 
     [Header("Distance Between Boxes")]
@@ -105,6 +105,7 @@ public class Spawner : MonoBehaviour
             }
         }
     }
+ 
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(_SpawnPoints[0].position

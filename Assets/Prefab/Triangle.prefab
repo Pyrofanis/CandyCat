@@ -71,5 +71,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Triangle
       objectReference: {fileID: 0}
+    - target: {fileID: 6685123627232353117, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
+      propertyPath: _BoxType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
