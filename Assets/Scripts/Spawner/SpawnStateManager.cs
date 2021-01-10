@@ -31,6 +31,7 @@ public class SpawnStateManager : MonoBehaviour
         }
         else
         {
+            Debug.Log(MachingBoxes.Length);
             SpawnerStates.ChangeState(SpawnerStates.States.Spawn);
         }
     }
