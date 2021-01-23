@@ -29,7 +29,7 @@ public class BoxStates : MonoBehaviour
 
     private void Awake()
     {
-        spawner = GameObject.FindObjectOfType<Spawner>();
+        //spawner = GameObject.FindObjectOfType<Spawner>();
         rb = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
@@ -46,6 +46,6 @@ public class BoxStates : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, Vector2.one * 3 * spawner._DistanceBox);
+        //Gizmos.DrawWireCube(transform.position, Vector2.one * 3 * spawner._DistanceBox);
     }
 }

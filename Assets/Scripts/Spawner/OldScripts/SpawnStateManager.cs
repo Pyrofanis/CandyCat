@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnStateManager : MonoBehaviour
 {   
    
-    private Spawner spawner;
+    private Spawner spawner;   
     private void Awake()
     {
         spawner = GetComponent<Spawner>();
@@ -31,7 +31,6 @@ public class SpawnStateManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(MachingBoxes.Length);
             SpawnerStates.ChangeState(SpawnerStates.States.Spawn);
         }
     }

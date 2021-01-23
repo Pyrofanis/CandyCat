@@ -3,50 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
-{   
+{
     [Header("Maching Cat Items")]
     [Min(0)]
     public GameObject[] _MachingBoxes;
 
     [Header("Time For Each Object To Spawn")]
-    [Range(0.1f,2f)]
-    public float _SpawnTime=0.1f;
+    [Range(0.1f, 2f)]
+    public float _SpawnTime = 0.1f;
 
     [Header("SpawnPoint Edges")]
     [Tooltip("The Edges to spawn In Current Line")]
     [Min(2)]
-    public  Transform[] _SpawnPoints;
+    public Transform[] _SpawnPoints;
 
     [Header("Layer Of MachingBoxes")]
-    public  LayerMask _MachingBoxLayer;
+    public LayerMask _MachingBoxLayer;
 
-    [Header("Maximum blocks to start with")]
-    [Range(20, 160)]
-    public int _MaximumInitialBoxes = 40;
+    //[Header("Maximum blocks to start with")]
+    //[Range(20, 160)]
+    //public int _MaximumInitialBoxes = 40;
     [Header("ExtraBoxes")]
     [Tooltip("Will Affect Spawning Rate Also")]
     [Range(1, 160)]
     public int _ExtraBoxes = 20;
 
     [Header("Distance Between Boxes")]
-    [Range(0.2f, 4)]
+    [Range(1, 4)]
     public float _DistanceBox;
+
+    private int width = 0, height = 0;
     private float timer;
-
-    [Header("Dimensions Of Current Level")]
-    public Vector2Int _MarblesDimensions; 
-    public int debux, debuy;
-
- 
-    [SerializeField]
     private Vector3 _CurrentSpawnPoint;
-    public GameObject[,] ActiveTilesPerRow;
-    public List<GameObject> ActiveTiles;
+
     private void Awake()
     {
-   
-        
-        ActiveTilesPerRow = new GameObject[_MarblesDimensions.x,_MarblesDimensions.y];
+        width = 0; height = 0;
     }
     // Start is called before the first frame update
     void Start()
@@ -67,14 +59,11 @@ public class Spawner : MonoBehaviour
             case SpawnerStates.States.Spawn:
                 SpawnObject();
                 break;
-            case SpawnerStates.States.DoNothing:
-                _CurrentSpawnPoint = Vector3.zero;
-                break;
         }
     }
     private void SpawnObject()
     {
-        if (timer > _SpawnTime)
+        if (timer > _SpawnTime || timer.Equals(0))
         {
             timer = 0;
             Spawn(SpawnPoint());
@@ -82,41 +71,37 @@ public class Spawner : MonoBehaviour
     }
     private void Spawn(Vector3 PositionToInstanciate)
     {
-          ActiveTilesPerRow[debux, debuy].Equals(
-              Instantiate(
-                   _MachingBoxes[Random.Range(0, _MachingBoxes.Length)]
-                   , PositionToInstanciate
-                   , Quaternion.identity
-                   ));
+        GameObject currentTile = Instantiate(
+                     _MachingBoxes[Random.Range(0, _MachingBoxes.Length)]
+                     , PositionToInstanciate
+                     , Quaternion.identity
+                     ) ;
+        currentTile.transform.SetParent(transform);
+        currentTile.name = "_( " + height + "," + width + " )_";
     }
-    private int InitialRowGenerate()
+    private Vector3 SpawnPoint()
     {
-        float distanceBettweenWaypoints = Vector2.Distance(_SpawnPoints[0].position, _SpawnPoints[1].position);
-        float rowsCalculated = distanceBettweenWaypoints / _DistanceBox;
-        return Mathf.RoundToInt(rowsCalculated);
-    }
-    private Vector3  SpawnPoint()
-    {
+        _CurrentSpawnPoint.z = 0;
         if (_CurrentSpawnPoint.x >= _SpawnPoints[1].transform.position.x)
         {
-            debuy ++;
-            debux = 0;
-            _CurrentSpawnPoint.y -= _DistanceBox;
             _CurrentSpawnPoint.x = _SpawnPoints[0].position.x;
+            _CurrentSpawnPoint.y -= _DistanceBox;
+            height++;
+            width = 0;
         }
         else
         {
-            debux++;
+            width++;
             _CurrentSpawnPoint += new Vector3(_DistanceBox, 0, 0);
         }
         return _CurrentSpawnPoint;
 
     }
- 
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(_SpawnPoints[0].position
-            ,_SpawnPoints[1].position);
-        Gizmos.DrawWireCube(_CurrentSpawnPoint,_DistanceBox*Vector3.one);
+        //Gizmos.DrawLine(_SpawnPoints[0].position
+        //    , _SpawnPoints[1].position);
+        //Gizmos.DrawWireCube(_CurrentSpawnPoint, _DistanceBox * Vector3.one);
     }
 }
