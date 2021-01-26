@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3087da4b406614d489e60ab75f5f8ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 6
+  height: 7
   width: 4
   _TilePrefab: {fileID: 5819554759778086805, guid: f22c28cd2d89c524b8c452379d6f6a64, type: 3}
   _StartingPos: {fileID: 1719105759}
@@ -547,7 +547,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951787753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1.41, y: 2.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -7,8 +7,15 @@ public class SpawnObjects : MonoBehaviour
     [Header("Maching Cat Items")]
     [Min(0)]
     public GameObject[] _MachingBoxes;
-    // Start is called before the first frame update
-    public  void SpawnGameTiles(Vector3 PositionToInstanciate, Transform parentTransform, Vector2 Name)
+    public GameObject[,] _Tiles;
+    private BackgroudCreator backgroudCreator;
+    private void Awake()
+    {
+        backgroudCreator = GetComponent<BackgroudCreator>();
+        _Tiles = new GameObject[backgroudCreator.width, backgroudCreator.height];
+
+    }
+    public void SpawnGameTiles(Vector3 PositionToInstanciate, Transform parentTransform, Vector2 Name)
     {
 
         GameObject currentTile = Instantiate(
@@ -18,5 +25,14 @@ public class SpawnObjects : MonoBehaviour
                      );
         currentTile.transform.SetParent(parentTransform);
         currentTile.name = "Tile In:" + Name.ToString("0,0");
+        Vector2Int posInArray =new Vector2Int(Mathf.RoundToInt(Name.x),
+            Mathf.RoundToInt(Name.y)
+            ) ;
+        InsertToArray(posInArray, currentTile);
+        
+    }
+    private void InsertToArray(Vector2Int pos,GameObject objectToAddInArray)
+    {
+        _Tiles[pos.x, pos.y] = objectToAddInArray;
     }
 }

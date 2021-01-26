@@ -15,7 +15,6 @@ public class BackgroudCreator : MonoBehaviour
     public Transform _StartingPos;
     [HideInInspector]
     public GameObject[,] _BackgroudPrefab;
-
     private SpawnObjects spawnObjects;
 
     private void Awake()
@@ -43,8 +42,8 @@ public class BackgroudCreator : MonoBehaviour
             {
                 Vector2 name = new Vector2(x, y);
                 Vector2 initialPos =_StartingPos.position*(Vector2.right+Vector2.up);
-                Vector2 tempPos = initialPos + name;
-                BackgroundTileSpawner(tempPos,name);
+                //Vector2 tempPos = initialPos + name;
+                BackgroundTileSpawner(name, name);
 
 
             }
@@ -55,7 +54,7 @@ public class BackgroudCreator : MonoBehaviour
         GameObject backGroundTile = Instantiate(_TilePrefab, posToSpawn, Quaternion.identity);
         backGroundTile.name = _NameOfOBject.ToString("0,0");
         backGroundTile.transform.SetParent(transform);
-        spawnObjects.SpawnGameTiles(posToSpawn, backGroundTile.transform,_NameOfOBject);
+        spawnObjects.SpawnGameTiles(posToSpawn,transform,_NameOfOBject);
     }
 
 
