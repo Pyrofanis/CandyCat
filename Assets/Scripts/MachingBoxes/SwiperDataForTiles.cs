@@ -6,7 +6,7 @@ public class SwiperDataForTiles : MonoBehaviour
 {
     public enum Direction
     {
-        up, down, left, right
+        up, down, left, right,none
     }
     [Header("GiaDebugMono")]
     public Direction whatISTheDir;
@@ -15,6 +15,8 @@ public class SwiperDataForTiles : MonoBehaviour
     public int row;
     public int _TargetX;
     public int _TargetY;
+
+    public bool debug;
 
     private BoxStates currentBoxState;
     private Vector2 currentPos;
@@ -38,15 +40,26 @@ public class SwiperDataForTiles : MonoBehaviour
         _TargetY = (int)GetComponentInParent<Transform>().position.y;
         row = _TargetY;
         currentPos = new Vector2(_TargetX, _TargetY);
+        whatISTheDir=Direction.none;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentPos = new Vector2(column, row);
-        transform.position = currentPos;
-        gameObject.name = "Tile in: " + currentPos;
+        //DestroyAndApplyScoreIfTrue();
+        if (DistanceHorizontalVertical() >= 0.1f)
+        {
+            Vector2.Lerp(_CurrentPos(), transform.position ,0.1f*Time.deltaTime);
+        }
+        else
+        {
+            transform.position = _CurrentPos();
+            gameObject.name = "Tile in: " + new Vector2(column, row);
+            spawn._Tiles[column, row] = this.gameObject;
+        }
+        if (debug) 
+        Debug.Log(gameObject.name + "CurrentPosVector:" + _CurrentPos());//theli diorthosi
     }
 
     private void OnMouseDown()
@@ -123,6 +136,7 @@ public class SwiperDataForTiles : MonoBehaviour
 
     IEnumerator ResetVariablesAfterMovementChange()
     {
+        whatISTheDir=(Direction.none);
         yield return new WaitForSeconds(1f);
         initialPos = Vector2.zero;
         finalPos = Vector2.zero;
@@ -159,13 +173,79 @@ public class SwiperDataForTiles : MonoBehaviour
 
         return false;
     }
-    private void DestroyAndApplyScoreIfTrue(bool toDestroyOrCheck)
+    private GameObject[] whatToDestroy ()
+    {
+        GameObject horizontalDotLeft, HorizontalDotRight;
+        List<GameObject> horizontalObjects=null;
+
+        GameObject VerticaDotDown, VerticalDotUp;
+        List<GameObject> VerticalObjects=null;
+       
+
+        if (CanDestroyHorizontal())
+        {
+            horizontalDotLeft = spawn._Tiles[column - 1, row];
+            HorizontalDotRight = spawn._Tiles[column + 1, row];
+            horizontalObjects.Add(horizontalDotLeft);
+            horizontalObjects.Add(HorizontalDotRight);
+            return horizontalObjects.ToArray();
+        }
+        if (CanDestroyVertical())
+        {
+            VerticaDotDown = spawn._Tiles[column, row - 1];
+            VerticalDotUp = spawn._Tiles[column, row + 1];
+            VerticalObjects.Add(VerticaDotDown);
+            VerticalObjects.Add(VerticalDotUp);
+            return VerticalObjects.ToArray();
+        }
+        return null;
+    }
+    private void DestroyAndApplyScoreIfTrue()
     {
         if (CanDestroyHorizontal()||CanDestroyVertical())
         {
             //apply score
-            Destroy(gameObject);
+            foreach (GameObject _Object in whatToDestroy())
+            {
+                Destroy(_Object);
+            }
+        
+            StartCoroutine(DestroyWithDelay());
             //spawn
         }
+    }
+  private  IEnumerator DestroyWithDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        Destroy(gameObject);
+
+    }
+    private float DistanceHorizontalVertical()
+    {
+        if (whatISTheDir == (Direction.up) || whatISTheDir == (Direction.down))
+        {
+            return finalPos.y - initialPos.y;
+        }
+        else if (whatISTheDir != Direction.none)
+        {
+            return finalPos.x - initialPos.x;
+        }
+        else return 0;
+
+    }
+    private Vector2 _CurrentPos() 
+    { if (transform.position.x.Equals(column))
+        {
+            return new Vector2(transform.position.x, _TargetY);
+        }
+        else if (transform.position.y.Equals(row))
+        {
+            return new Vector2(_TargetX, transform.position.y);
+        }
+        else
+        {
+            return new Vector2(column, row);
+        }
+    
     }
 }

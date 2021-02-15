@@ -8,7 +8,8 @@ public class BoxStates : MonoBehaviour
     {
         circle,
         square,
-        triangle
+        triangle,
+        hole
 
     }
     public enum ActivityState
