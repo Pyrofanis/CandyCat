@@ -33,7 +33,12 @@ public class SpawnBoxes : MonoBehaviour
 
                 GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity,this.transform);
                 objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
+
+                TilesData tilesData = objectToEdit.GetComponent<TilesData>();
+
                 BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(objectToEdit, boxTypes,x,y);
+                tilesData.thisType = new BoxesData.TypeNPrefab(objectToEdit, boxTypes,x,y);
+
                 typeNPrefabs.Add(currentTypeNPrefab);
                 
             }

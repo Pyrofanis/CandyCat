@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 871467619298775618}
   - component: {fileID: 871467619298775619}
   - component: {fileID: 6882627069837130633}
+  - component: {fileID: 8457361288500939956}
+  - component: {fileID: 1370480780281629437}
   m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
@@ -29,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 871467619298775616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.506568, y: -0.18680117, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -144,4 +146,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8317512a9d7c44c4b8029234d22ac211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  currentNameSearch: 
+--- !u!114 &8457361288500939956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871467619298775616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b453bfaba406392438416be1fe602ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisType:
+    prefab: {fileID: 0}
+    boxType: 0
+    x: 0
+    y: 0
+  parentSpawnBoxes: {fileID: 0}
   currentMap: []
+  locsOfSameTypeTiles: []
+--- !u!114 &1370480780281629437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871467619298775616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69d0de1937a57944811a5c4e834774e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
