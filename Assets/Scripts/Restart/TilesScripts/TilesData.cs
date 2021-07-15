@@ -9,9 +9,9 @@ public class TilesData : MonoBehaviour
     [HideInInspector]
     public SpawnBoxes parentSpawnBoxes;
 
-    [HideInInspector]
-    public Vector3 currentPosition;
-    [HideInInspector]
+    //[HideInInspector]
+    public Vector3 initialPos;
+    //[HideInInspector]
     public Vector3 mousePos;
 
     [HideInInspector]
@@ -19,7 +19,7 @@ public class TilesData : MonoBehaviour
     [HideInInspector]
     public BoxesData.TypeNPrefab thisType;
 
-
+    public bool debugLog;
 
     public List<BoxesData.TypeNPrefab> currentMap;
 
@@ -36,35 +36,34 @@ public class TilesData : MonoBehaviour
     void Update()
     {
         UpdateMap();
+        Vector2Int initalPosInt = Vector2Int.CeilToInt(initialPos);
+        Vector2Int NewPos = initalPosInt + Movements();
+        if (debugLog)
+        Debug.Log(NewPos);
     }
     private void UpdateMap()
     {
         currentMap = parentSpawnBoxes.typeNPrefabs;
     }
-
-    public Vector2Int Boundaries()
+    public Vector2Int WhereToMove()
     {
-        //get axes
-        int x = Mathf.RoundToInt(transform.position.x - 1);
-        int y = Mathf.RoundToInt(transform.position.y);
-        //limit  X axes
-        if ((x > parentSpawnBoxes.gameArray.x))
+        Vector2Int initalPosInt = Vector2Int.CeilToInt(initialPos);
+        Vector2Int NewPos= initalPosInt + Movements();
+        if (NewPos != Boundaries())
         {
-            x = parentSpawnBoxes.gameArray.x;
+            return NewPos;
         }
-        else if (x <= 0)
+        else
         {
-            x = 0;
+            return initalPosInt;
         }
-        //limit y axes
-        if ((y > parentSpawnBoxes.gameArray.y))
-        {
-            y = parentSpawnBoxes.gameArray.y;
-        }
-        else if (y <= 0)
-        {
-            y = 0;
-        }
-        return new Vector2Int(x, y);
+    }
+    private Vector2Int Movements()
+    { 
+        return Vector2Int.CeilToInt(initialPos - mousePos);
+    }
+    private Vector2Int Boundaries()
+    {
+        return new Vector2Int(parentSpawnBoxes.gameArray.x,parentSpawnBoxes.gameArray.y);
     }
 }

@@ -30,7 +30,7 @@ public class PlaceSwaper : MonoBehaviour
     private void OnMouseDown()
     {
         currentName = gameObject.name;
-        tilesData.currentPosition = gameObject.transform.position;
+        tilesData.initialPos = gameObject.transform.position;
     }
     private void OnMouseDrag()
     {
@@ -43,20 +43,23 @@ public class PlaceSwaper : MonoBehaviour
     }
     private void StickToMouse()
     {
-        tilesData.mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 5);
+        Vector3 mousPosRaw = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 5);
+        float x = mousPosRaw.x ;
+        float y = mousPosRaw.y;
+        Vector3Int mousPosEdited = Vector3Int.CeilToInt(new Vector3(x, y,5));
+        tilesData.mousePos = mousPosEdited;
         transform.position = tilesData.mousePos;
     }
     private void FindNearestTile()
     {
-        position = tilesData.Boundaries();
+        position = tilesData.WhereToMove();
         foreach (BoxesData.TypeNPrefab type in tilesData.currentMap)
         {
             Vector2 coordinates = new Vector2(type.x, type.y);
-            if (coordinates.Equals(tilesData.Boundaries()))
+            if (coordinates.Equals(tilesData.WhereToMove()))
             {
                 tilesData.nextType = type;
             }
-
         }
     }
     private void SwapPlaces(bool canU)
@@ -73,7 +76,7 @@ public class PlaceSwaper : MonoBehaviour
             tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextType.prefab.transform.position.y);
 
             //changing parameters targeted obj
-            tilesData.nextType.prefab.transform.position = tilesData.currentPosition;
+            tilesData.nextType.prefab.transform.position = tilesData.initialPos;
             tilesData.nextType.x = Mathf.RoundToInt(transform.position.x);
             tilesData.nextType.y = Mathf.RoundToInt(transform.position.y);
 
@@ -86,10 +89,10 @@ public class PlaceSwaper : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (tilesData.nextType.prefab != null && tilesData.currentPosition != Vector3.zero)
+        if (tilesData.nextType.prefab != null && tilesData.initialPos != Vector3.zero)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(tilesData.currentPosition, tilesData.nextType.prefab.transform.position);
+            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextType.prefab.transform.position);
         }
            
     }
