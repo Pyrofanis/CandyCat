@@ -77,87 +77,42 @@ public class AvailableLocs : MonoBehaviour
     }
     private void CheckIfMachingCollumnOrRowIsCreated(int indexX,int indexY,int negativeOrPositve,BoxesData.TypeNPrefab[,] map,Vector2Int swapableCordsVector)
     {
-        int offsetXCoord1= swapableCordsVector.x + indexX * negativeOrPositve;
-        int offsetYCoord1= swapableCordsVector.y + indexY * negativeOrPositve;
-        int offsetXCoord2 = offsetXCoord1 + 1 * indexX * negativeOrPositve;
-        int offsetYCoord2 = offsetYCoord1 + 1 * indexY * negativeOrPositve;
+        int offsetXCoord1= LimitAxes(swapableCordsVector.x + indexX * negativeOrPositve,true);
+        int offsetYCoord1= LimitAxes(swapableCordsVector.y + indexY * negativeOrPositve,false);
+        int offsetXCoord2 = LimitAxes(offsetXCoord1 + 1 * indexX * negativeOrPositve,true);
+        int offsetYCoord2 = LimitAxes(offsetYCoord1 + 1 * indexY * negativeOrPositve,false);
 
-        //limit axes
-        if (offsetXCoord1 >= tilesData.parentSpawnBoxes.gameArray.x)
-        {
-            offsetXCoord1 = tilesData.parentSpawnBoxes.gameArray.x-1;
-        }
-        if (offsetXCoord2 >= tilesData.parentSpawnBoxes.gameArray.x)
-        {
-            offsetXCoord2 = tilesData.parentSpawnBoxes.gameArray.x - 1;
-        }
-        if (offsetXCoord1 < 0)
-        {
-            offsetXCoord1 = 0;
-        }
-        if (offsetXCoord2 < 0)
-        {
-            offsetXCoord2 = 0;
-        }
-        if (offsetYCoord1 >= tilesData.parentSpawnBoxes.gameArray.y)
-        {
-            offsetYCoord1 = tilesData.parentSpawnBoxes.gameArray.y - 1;
-        }
-        if (offsetYCoord2 >= tilesData.parentSpawnBoxes.gameArray.y)
-        {
-            offsetYCoord2 = tilesData.parentSpawnBoxes.gameArray.y - 1;
-        }
-        if (offsetYCoord1 < 0)
-        {
-            offsetYCoord1 = 0;
-        }
-        if (offsetYCoord2 < 0)
-        {
-            offsetYCoord2 = 0;
-        }
-        //
-        BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
-        BoxesData.TypeNPrefab coord2Obj= map[offsetXCoord2,offsetYCoord2];
-        
-     
-
-        Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
-        Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
-        if (!tilesData.locsOfSameTypeTiles.Contains(coord1)|| !tilesData.locsOfSameTypeTiles.Contains(coord2))
-        {
-            tilesData.SwapableLocs.Remove(swapableCordsVector);
-            tilesData.SwapableLocs.TrimExcess();
-        }
-        
-    }
-    private void MidPosCheckCollumnRow(int indexX,int indexY, BoxesData.TypeNPrefab[,] map, Vector2Int swapableCordsVector)
-    {
-        int offsetXCoord1 = swapableCordsVector.x + indexX ;
-        int offsetYCoord1 = swapableCordsVector.y + indexY ;
-        int offsetXCoord2 = offsetXCoord1 -  indexX ;
-        int offsetYCoord2 = offsetYCoord1 -  indexY ;
-
-        if (offsetXCoord1 >= tilesData.parentSpawnBoxes.gameArray.x)
-        {
-            offsetXCoord1 = tilesData.parentSpawnBoxes.gameArray.x - 1;
-        }
-        if (offsetYCoord1 >= tilesData.parentSpawnBoxes.gameArray.y)
-        {
-            offsetYCoord1 = tilesData.parentSpawnBoxes.gameArray.y - 1;
-        }
-        if (offsetXCoord2 < 0)
-        {
-            offsetXCoord2 = 0;
-        }
-        if (offsetYCoord2 < 0)
-        {
-            offsetYCoord2 = 0;
-        }
+        Debug.Log(offsetXCoord1 + "," + offsetXCoord2 + "Coords X");
+        Debug.Log(offsetYCoord1 + "," + offsetYCoord2 + "Coords X");
 
         BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         BoxesData.TypeNPrefab coord2Obj = map[offsetXCoord2, offsetYCoord2];
 
-        
+
+
+        Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
+        Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
+        if (!tilesData.locsOfSameTypeTiles.Contains(coord1) || !tilesData.locsOfSameTypeTiles.Contains(coord2))
+        {
+            tilesData.SwapableLocs.Remove(swapableCordsVector);
+            tilesData.SwapableLocs.TrimExcess();
+        }
+
+    }
+    private void MidPosCheckCollumnRow(int indexX,int indexY, BoxesData.TypeNPrefab[,] map, Vector2Int swapableCordsVector)
+    {
+        int offsetXCoord1 =LimitAxes(swapableCordsVector.x + indexX ,true);
+        int offsetYCoord1 =LimitAxes( swapableCordsVector.y + indexY,false) ;
+        int offsetXCoord2 =LimitAxes( offsetXCoord1 -  indexX,true) ;
+        int offsetYCoord2 =LimitAxes(offsetYCoord1 -  indexY,false) ;
+
+        Debug.Log(offsetXCoord1 + "," + offsetXCoord2 + "Coords X");
+        Debug.Log(offsetYCoord1 + "," + offsetYCoord2 + "Coords X");
+
+        BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
+        BoxesData.TypeNPrefab coord2Obj = map[offsetXCoord2, offsetYCoord2];
+
+
 
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
@@ -167,10 +122,27 @@ public class AvailableLocs : MonoBehaviour
         }
 
     }
+    private int LimitAxes(int coordToLimit,bool horizontalAxes)
+    {
+        if (horizontalAxes)
+        {
+            return Mathf.Clamp(coordToLimit, 0, tilesData.parentSpawnBoxes.gameArray.x-1);
+        }
+        else
+        {
+            return Mathf.Clamp(coordToLimit, 0, tilesData.parentSpawnBoxes.gameArray.y-1);
+        }
+    }
 
     private void AddAvailableTilesToMove(BoxesData.TypeNPrefab[,] map, int indexX, int indexY,List<Vector2> swapableLocations)
     {
-        BoxesData.TypeNPrefab currentTileToAdd = map[tilesData.thisType.x + indexX, tilesData.thisType.y + indexY];
+        int x = tilesData.thisType.x + indexX;
+        int y = tilesData.thisType.y + indexY;
+
+        int clampedX = Mathf.Clamp(x, 0, tilesData.parentSpawnBoxes.gameArray.x - 1);
+        int clampedy = Mathf.Clamp(y, 0, tilesData.parentSpawnBoxes.gameArray.y - 1);
+
+        BoxesData.TypeNPrefab currentTileToAdd = map[clampedX,clampedy];
         Vector2 coords = new Vector2(currentTileToAdd.x, currentTileToAdd.y);
         if (!swapableLocations.Contains(coords))
         swapableLocations.Add(coords);//pernei olles ths dinates thesis kai meta prepei na tsekaris gia na kseskartaris aftes mono
