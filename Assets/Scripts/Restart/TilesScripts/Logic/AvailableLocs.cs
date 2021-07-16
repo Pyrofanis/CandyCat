@@ -47,6 +47,7 @@ public class AvailableLocs : MonoBehaviour
         adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 2);
 
     }
+    //this works
     private void FindSwapablePoints()
     {
             //adds all available moveable locations
@@ -78,10 +79,47 @@ public class AvailableLocs : MonoBehaviour
     {
         int offsetXCoord1= swapableCordsVector.x + indexX * negativeOrPositve;
         int offsetYCoord1= swapableCordsVector.y + indexY * negativeOrPositve;
-        BoxesData.TypeNPrefab coord1Obj=map[offsetXCoord1, offsetYCoord1];
-        int offsetXCoord2=offsetXCoord1+1*indexX*negativeOrPositve;
-        int offsetYCoord2= offsetYCoord1 + 1 * indexY * negativeOrPositve;
+        int offsetXCoord2 = offsetXCoord1 + 1 * indexX * negativeOrPositve;
+        int offsetYCoord2 = offsetYCoord1 + 1 * indexY * negativeOrPositve;
+
+        //limit axes
+        if (offsetXCoord1 >= tilesData.parentSpawnBoxes.gameArray.x)
+        {
+            offsetXCoord1 = tilesData.parentSpawnBoxes.gameArray.x-1;
+        }
+        if (offsetXCoord2 >= tilesData.parentSpawnBoxes.gameArray.x)
+        {
+            offsetXCoord2 = tilesData.parentSpawnBoxes.gameArray.x - 1;
+        }
+        if (offsetXCoord1 < 0)
+        {
+            offsetXCoord1 = 0;
+        }
+        if (offsetXCoord2 < 0)
+        {
+            offsetXCoord2 = 0;
+        }
+        if (offsetYCoord1 >= tilesData.parentSpawnBoxes.gameArray.y)
+        {
+            offsetYCoord1 = tilesData.parentSpawnBoxes.gameArray.y - 1;
+        }
+        if (offsetYCoord2 >= tilesData.parentSpawnBoxes.gameArray.y)
+        {
+            offsetYCoord2 = tilesData.parentSpawnBoxes.gameArray.y - 1;
+        }
+        if (offsetYCoord1 < 0)
+        {
+            offsetYCoord1 = 0;
+        }
+        if (offsetYCoord2 < 0)
+        {
+            offsetYCoord2 = 0;
+        }
+        //
+        BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         BoxesData.TypeNPrefab coord2Obj= map[offsetXCoord2,offsetYCoord2];
+        
+     
 
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
@@ -96,16 +134,36 @@ public class AvailableLocs : MonoBehaviour
     {
         int offsetXCoord1 = swapableCordsVector.x + indexX ;
         int offsetYCoord1 = swapableCordsVector.y + indexY ;
-        BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         int offsetXCoord2 = offsetXCoord1 -  indexX ;
         int offsetYCoord2 = offsetYCoord1 -  indexY ;
+
+        if (offsetXCoord1 >= tilesData.parentSpawnBoxes.gameArray.x)
+        {
+            offsetXCoord1 = tilesData.parentSpawnBoxes.gameArray.x - 1;
+        }
+        if (offsetYCoord1 >= tilesData.parentSpawnBoxes.gameArray.y)
+        {
+            offsetYCoord1 = tilesData.parentSpawnBoxes.gameArray.y - 1;
+        }
+        if (offsetXCoord2 < 0)
+        {
+            offsetXCoord2 = 0;
+        }
+        if (offsetYCoord2 < 0)
+        {
+            offsetYCoord2 = 0;
+        }
+
+        BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         BoxesData.TypeNPrefab coord2Obj = map[offsetXCoord2, offsetYCoord2];
+
+        
+
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
         if (!tilesData.locsOfSameTypeTiles.Contains(coord1) || !tilesData.locsOfSameTypeTiles.Contains(coord2))
         {
             tilesData.SwapableLocs.Remove(swapableCordsVector);
-            tilesData.SwapableLocs.TrimExcess();
         }
 
     }

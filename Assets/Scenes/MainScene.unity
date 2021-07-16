@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameArray:
-    x: 3
+    x: 8
     y: 10
   Prefabs:
   - prefab: {fileID: 871467619298775616, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
