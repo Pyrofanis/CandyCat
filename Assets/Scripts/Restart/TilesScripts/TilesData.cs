@@ -13,6 +13,7 @@ public class TilesData : MonoBehaviour
     public Vector3 initialPos;
     //[HideInInspector]
     public Vector3 mousePos;
+    public Vector3 wheretomove,direction;
 
     [HideInInspector]
     public BoxesData.TypeNPrefab nextType;
@@ -24,9 +25,12 @@ public class TilesData : MonoBehaviour
     public List<BoxesData.TypeNPrefab> currentMap;
 
     public List<Vector2> locsOfSameTypeTiles;
+
+    public List<Vector2> SwapableLocs;
     // Start is called before the first frame update
     void Start()
     {
+        initialPos = new Vector3(transform.localPosition.x,transform.localPosition.y,5);
         parentSpawnBoxes = transform.parent.GetComponent<SpawnBoxes>();
         currentMap = parentSpawnBoxes.typeNPrefabs;
 
@@ -36,34 +40,11 @@ public class TilesData : MonoBehaviour
     void Update()
     {
         UpdateMap();
-        Vector2Int initalPosInt = Vector2Int.CeilToInt(initialPos);
-        Vector2Int NewPos = initalPosInt + Movements();
-        if (debugLog)
-        Debug.Log(NewPos);
+
     }
     private void UpdateMap()
     {
         currentMap = parentSpawnBoxes.typeNPrefabs;
     }
-    public Vector2Int WhereToMove()
-    {
-        Vector2Int initalPosInt = Vector2Int.CeilToInt(initialPos);
-        Vector2Int NewPos= initalPosInt + Movements();
-        if (NewPos != Boundaries())
-        {
-            return NewPos;
-        }
-        else
-        {
-            return initalPosInt;
-        }
-    }
-    private Vector2Int Movements()
-    { 
-        return Vector2Int.CeilToInt(initialPos - mousePos);
-    }
-    private Vector2Int Boundaries()
-    {
-        return new Vector2Int(parentSpawnBoxes.gameArray.x,parentSpawnBoxes.gameArray.y);
-    }
+
 }

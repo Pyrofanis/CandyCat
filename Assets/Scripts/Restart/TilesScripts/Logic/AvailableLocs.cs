@@ -16,9 +16,14 @@ public class AvailableLocs : MonoBehaviour
     void Update()
     {
     }
-    private void OnMouseDrag()
+    private void OnMouseEnter()
     {
         FindSameTypeTiles();
+
+    }
+    private void OnMouseDrag()
+    {
+        FindSwapablePoints();
     }
     private void OnMouseUp()
     {
@@ -35,8 +40,44 @@ public class AvailableLocs : MonoBehaviour
             }
         }
     }
+    private void FindSwapablePoints()
+    {
+        for (int i = 0; i < tilesData.locsOfSameTypeTiles.Count; i++)
+        {
+            Vector2 currentVecor=tilesData.locsOfSameTypeTiles[i];
+            Check(currentVecor, 0, 0, tilesData.locsOfSameTypeTiles, tilesData.SwapableLocs,1);
+            Check(currentVecor, 0, 0, tilesData.locsOfSameTypeTiles, tilesData.SwapableLocs,-1);
+        }
+    }
+    private void Check(Vector2 vector ,int indexX,int indexY,List<Vector2> listToCheck,List<Vector2> listToAdd,int NegativeOrPositive)
+    {
+        Vector2 vectorX = new Vector2(vector.x + indexX* NegativeOrPositive, vector.y);
+        Vector2 vectorY = new Vector2(vector.x , vector.y+indexY* NegativeOrPositive);
+        foreach (Vector2 currentVector in listToCheck)
+        {
+            if (vectorX.Equals(currentVector)&&indexX<=2)
+            {
+                indexX++;
+                Debug.Log(vectorX);
+            }
+             if (indexX > 2 || !listToAdd.Contains(currentVector))
+            {
+                listToAdd.Add(vectorX);
+            }
+            if (vectorY.Equals(currentVector)&&indexY<=2)
+            {
+                indexY++;
+            }
+             if (indexY > 2 || !listToAdd.Contains(currentVector))
+            {
+                listToAdd.Add(vectorY);
+            }
+        }
+    }
+ 
     private void ResetSameFileTileList()
     {
         tilesData.locsOfSameTypeTiles.Clear();
+        tilesData.SwapableLocs.Clear();
     }
 }

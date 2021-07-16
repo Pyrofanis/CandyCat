@@ -9,11 +9,11 @@ public class PlaceSwaper : MonoBehaviour
    
 
 
-    public Vector2Int position;
+    public Vector2 position;
     public string currentNameSearch;
 
-
-
+    public bool stopMovement;
+    public bool canSwap;
 
     private TilesData tilesData;
     // Start is called before the first frame update
@@ -26,7 +26,16 @@ public class PlaceSwaper : MonoBehaviour
     void Update()
     {
     }
-   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<TilesData>() != null)
+        {
+            TilesData adjastentedTile = collision.GetComponent<TilesData>();
+            tilesData.nextType = adjastentedTile.thisType;
+            stopMovement = true;
+        }
+    }
     private void OnMouseDown()
     {
         currentName = gameObject.name;
@@ -35,32 +44,18 @@ public class PlaceSwaper : MonoBehaviour
     private void OnMouseDrag()
     {
         StickToMouse();
-        FindNearestTile();
+        CheckIfItIsSwapable();
     }
     private void OnMouseUp()
     {
-        SwapPlaces(true);
+        SwapPlaces(stopMovement&&canSwap);
     }
     private void StickToMouse()
     {
         Vector3 mousPosRaw = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 5);
-        float x = mousPosRaw.x ;
-        float y = mousPosRaw.y;
-        Vector3Int mousPosEdited = Vector3Int.CeilToInt(new Vector3(x, y,5));
-        tilesData.mousePos = mousPosEdited;
-        transform.position = tilesData.mousePos;
-    }
-    private void FindNearestTile()
-    {
-        position = tilesData.WhereToMove();
-        foreach (BoxesData.TypeNPrefab type in tilesData.currentMap)
-        {
-            Vector2 coordinates = new Vector2(type.x, type.y);
-            if (coordinates.Equals(tilesData.WhereToMove()))
-            {
-                tilesData.nextType = type;
-            }
-        }
+        tilesData.mousePos =mousPosRaw;//world to local
+        if (!stopMovement)
+        transform.position =new Vector3(tilesData.mousePos.x,tilesData.mousePos.y,5);
     }
     private void SwapPlaces(bool canU)
     {
@@ -83,7 +78,29 @@ public class PlaceSwaper : MonoBehaviour
             //resetting
             currentName = "";
             tilesData.nextType = new BoxesData.TypeNPrefab();
+            stopMovement = false;
+            
 
+        }
+        else
+        {
+            //reseting to default
+            gameObject.transform.position = tilesData.initialPos;
+            stopMovement = false;
+        }
+    }
+    void CheckIfItIsSwapable()
+    {
+        foreach(Vector2 coords in tilesData.SwapableLocs)
+        {
+            if (coords.Equals(new Vector2(tilesData.nextType.x, tilesData.nextType.y)))//if it maches the coordinates that are acceptable it swaps
+            {
+                canSwap = true;
+            }
+            else
+            {
+                canSwap = false;
+            }
         }
     }
 
@@ -92,7 +109,7 @@ public class PlaceSwaper : MonoBehaviour
         if (tilesData.nextType.prefab != null && tilesData.initialPos != Vector3.zero)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextType.prefab.transform.position);
+            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextType.prefab.transform.localPosition);
         }
            
     }
