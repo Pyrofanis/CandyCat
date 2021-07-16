@@ -39,7 +39,7 @@ public class PlaceSwaper : MonoBehaviour
     private void OnMouseDown()
     {
         currentName = gameObject.name;
-        tilesData.initialPos = gameObject.transform.position;
+        tilesData.initialPos = gameObject.transform.localPosition;
     }
     private void OnMouseDrag()
     {
@@ -66,14 +66,14 @@ public class PlaceSwaper : MonoBehaviour
             tilesData.nextType.prefab.name = currentName;
 
             //changing parameters this obj
-            gameObject.transform.position = tilesData.nextType.prefab.transform.position;
-            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextType.prefab.transform.position.x);
-            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextType.prefab.transform.position.y);
+            gameObject.transform.position = tilesData.nextType.prefab.transform.localPosition;
+            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.x);
+            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.y);
 
             //changing parameters targeted obj
             tilesData.nextType.prefab.transform.position = tilesData.initialPos;
-            tilesData.nextType.x = Mathf.RoundToInt(transform.position.x);
-            tilesData.nextType.y = Mathf.RoundToInt(transform.position.y);
+            tilesData.nextType.x = Mathf.RoundToInt(transform.localPosition.x);
+            tilesData.nextType.y = Mathf.RoundToInt(transform.localPosition.y);
 
             //resetting
             currentName = "";

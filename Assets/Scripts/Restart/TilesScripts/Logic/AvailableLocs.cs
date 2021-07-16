@@ -5,7 +5,7 @@ using UnityEngine;
 public class AvailableLocs : MonoBehaviour
 {
     private TilesData tilesData;
-
+    private Collider2D[] adjustenedObjs;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +18,7 @@ public class AvailableLocs : MonoBehaviour
     }
     private void OnMouseEnter()
     {
+        GetNearObjs();
         FindSameTypeTiles();
 
     }
@@ -31,53 +32,48 @@ public class AvailableLocs : MonoBehaviour
     }
     private void FindSameTypeTiles()
     {
-        foreach (BoxesData.TypeNPrefab typeNPrefab in tilesData.currentMap)
+        foreach (Collider2D collider in adjustenedObjs)
         {
-            Vector2 coords = new Vector2(typeNPrefab.x, typeNPrefab.y);
-            if (typeNPrefab.boxType.Equals(tilesData.thisType.boxType)&&!tilesData.locsOfSameTypeTiles.Contains(coords))
+            BoxesData.TypeNPrefab currentType = collider.GetComponent<TilesData>().thisType;
+            Vector2 coords = new Vector2(currentType.x, currentType.y);
+            if (currentType.boxType.Equals(tilesData.thisType.boxType)&&!tilesData.locsOfSameTypeTiles.Contains(coords))
             {
                 tilesData.locsOfSameTypeTiles.Add(coords);
             }
         }
     }
+    private void GetNearObjs()
+    {
+        adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 2);
+
+    }
     private void FindSwapablePoints()
     {
         for (int i = 0; i < tilesData.locsOfSameTypeTiles.Count; i++)
         {
-            Vector2 currentVecor=tilesData.locsOfSameTypeTiles[i];
-            Check(currentVecor, 0, 0, tilesData.locsOfSameTypeTiles, tilesData.SwapableLocs,1);
-            Check(currentVecor, 0, 0, tilesData.locsOfSameTypeTiles, tilesData.SwapableLocs,-1);
+            CheckIfEqual(tilesData.currentMap, 1, 0, tilesData.SwapableLocs);
+            CheckIfEqual(tilesData.currentMap, -1, 0, tilesData.SwapableLocs);
+            CheckIfEqual(tilesData.currentMap, 0, 1, tilesData.SwapableLocs);
+            CheckIfEqual(tilesData.currentMap, 0, -1, tilesData.SwapableLocs);
         }
     }
-    private void Check(Vector2 vector ,int indexX,int indexY,List<Vector2> listToCheck,List<Vector2> listToAdd,int NegativeOrPositive)
+    private void CheckIfEqual(BoxesData.TypeNPrefab[,] map, int indexX, int indexY,List<Vector2> swapableLocations)
     {
-        Vector2 vectorX = new Vector2(vector.x + indexX* NegativeOrPositive, vector.y);
-        Vector2 vectorY = new Vector2(vector.x , vector.y+indexY* NegativeOrPositive);
-        foreach (Vector2 currentVector in listToCheck)
-        {
-            if (vectorX.Equals(currentVector)&&indexX<=2)
-            {
-                indexX++;
-                Debug.Log(vectorX);
-            }
-             if (indexX > 2 || !listToAdd.Contains(currentVector))
-            {
-                listToAdd.Add(vectorX);
-            }
-            if (vectorY.Equals(currentVector)&&indexY<=2)
-            {
-                indexY++;
-            }
-             if (indexY > 2 || !listToAdd.Contains(currentVector))
-            {
-                listToAdd.Add(vectorY);
-            }
-        }
+        BoxesData.TypeNPrefab currentTileToAdd = map[tilesData.thisType.x + indexX, tilesData.thisType.y + indexY];
+        Vector2 coords = new Vector2(currentTileToAdd.x, currentTileToAdd.y);
+        if (!swapableLocations.Contains(coords))
+        swapableLocations.Add(coords);//pernei olles ths dinates thesis kai meta prepei na tsekaris gia na kseskartaris aftes mono
+
     }
- 
+
     private void ResetSameFileTileList()
     {
-        tilesData.locsOfSameTypeTiles.Clear();
-        tilesData.SwapableLocs.Clear();
+        //tilesData.locsOfSameTypeTiles.Clear();
+        //tilesData.SwapableLocs.Clear();
+    }
+    private void OnDrawGizmos()
+    {
+        if (tilesData.debugLog)
+        Gizmos.DrawWireSphere(transform.position, 2);
     }
 }

@@ -22,7 +22,7 @@ public class TilesData : MonoBehaviour
 
     public bool debugLog;
 
-    public List<BoxesData.TypeNPrefab> currentMap;
+    public BoxesData.TypeNPrefab[,] currentMap;
 
     public List<Vector2> locsOfSameTypeTiles;
 
@@ -32,7 +32,7 @@ public class TilesData : MonoBehaviour
     {
         initialPos = new Vector3(transform.localPosition.x,transform.localPosition.y,5);
         parentSpawnBoxes = transform.parent.GetComponent<SpawnBoxes>();
-        currentMap = parentSpawnBoxes.typeNPrefabs;
+        currentMap = parentSpawnBoxes.arrayList;
 
     }
 
@@ -44,7 +44,7 @@ public class TilesData : MonoBehaviour
     }
     private void UpdateMap()
     {
-        currentMap = parentSpawnBoxes.typeNPrefabs;
+        currentMap = parentSpawnBoxes.arrayList;
     }
 
 }

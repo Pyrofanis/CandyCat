@@ -10,8 +10,14 @@ public class SpawnBoxes : MonoBehaviour
     public List<BoxesData.TypeNPrefab> Prefabs;
     [Header("Active Prefabs In Scene")]
     public List<BoxesData.TypeNPrefab> typeNPrefabs;
+
+    public BoxesData.TypeNPrefab[,] arrayList;
     // Start is called before the first frame update
     void Awake()
+    {
+        arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
+    }
+    private void Start()
     {
         SpawnObjs(gameArray.x, gameArray.y);
     }
@@ -40,6 +46,7 @@ public class SpawnBoxes : MonoBehaviour
                 tilesData.thisType = new BoxesData.TypeNPrefab(objectToEdit, boxTypes,x,y);
 
                 typeNPrefabs.Add(currentTypeNPrefab);
+                arrayList[x, y] = currentTypeNPrefab;
                 
             }
         }
