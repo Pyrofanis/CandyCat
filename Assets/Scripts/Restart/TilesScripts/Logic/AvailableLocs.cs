@@ -20,11 +20,11 @@ public class AvailableLocs : MonoBehaviour
     {
         GetNearObjs();
         FindSameTypeTiles();
+        FindSwapablePoints();
 
     }
     private void OnMouseDrag()
     {
-        FindSwapablePoints();
     }
     private void OnMouseUp()
     {
@@ -47,33 +47,42 @@ public class AvailableLocs : MonoBehaviour
         adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 2);
 
     }
+
     //this works
     private void FindSwapablePoints()
     {
             //adds all available moveable locations
-            AddAvailableTilesToMove(tilesData.currentMap, 1, 0, tilesData.SwapableLocs);
-            AddAvailableTilesToMove(tilesData.currentMap, -1, 0, tilesData.SwapableLocs);
-            AddAvailableTilesToMove(tilesData.currentMap, 0, 1, tilesData.SwapableLocs);
-            AddAvailableTilesToMove(tilesData.currentMap, 0, -1, tilesData.SwapableLocs);
+
+            AddAvailableTilesToMove(tilesData.currentMap, 1, 0, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.currentMap, -1, 0, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.currentMap, 0, 1, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.currentMap, 0, -1, tilesData.availableMovesLoc);
+
         //removes not symbiotic choices
-        foreach(Vector2 vector in tilesData.SwapableLocs)
+        foreach(Vector2 vector in tilesData.availableMovesLoc)
         {
             Vector2Int currentVector = Vector2Int.CeilToInt(vector);
-            //check by rows and collumns for pairs of two and removes if not eg xxo
-            //x check pos
-            CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, tilesData.currentMap, currentVector);
-            //x check neg
-            CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, tilesData.currentMap, currentVector);
-            //y check pos
-            CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, tilesData.currentMap, currentVector);
-            //y check neg
-            CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, tilesData.currentMap, currentVector);
-            //checks if a midsection is created ej xox by rows and collumns
-            //x check
-            MidPosCheckCollumnRow(1, 0, tilesData.currentMap, currentVector);
-            //y check
-            MidPosCheckCollumnRow(0, 1, tilesData.currentMap, currentVector);
+            //check by rows and collumns for pairs eg xxo or crossSections ej xox 
+            CheckForAllAvailableMaches(currentVector);
         }
+    }
+    private void CheckForAllAvailableMaches(Vector2Int currentAvailableMoveVector)
+    {
+        //check by rows and collumns for pairs of two eg xxo
+        //x check pos
+        CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, tilesData.currentMap, currentAvailableMoveVector);
+        //x check neg
+        CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, tilesData.currentMap, currentAvailableMoveVector);
+        //y check pos
+        CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, tilesData.currentMap, currentAvailableMoveVector);
+        //y check neg
+        CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, tilesData.currentMap, currentAvailableMoveVector);
+
+        //checks if a midsection is created ej xox by rows and collumns
+        //x check
+        MidPosCheckCollumnRow(1, 0, tilesData.currentMap, currentAvailableMoveVector);
+        //y check
+        MidPosCheckCollumnRow(0, 1, tilesData.currentMap, currentAvailableMoveVector);
     }
     private void CheckIfMachingCollumnOrRowIsCreated(int indexX,int indexY,int negativeOrPositve,BoxesData.TypeNPrefab[,] map,Vector2Int swapableCordsVector)
     {
@@ -82,20 +91,15 @@ public class AvailableLocs : MonoBehaviour
         int offsetXCoord2 = LimitAxes(offsetXCoord1 + 1 * indexX * negativeOrPositve,true);
         int offsetYCoord2 = LimitAxes(offsetYCoord1 + 1 * indexY * negativeOrPositve,false);
 
-        Debug.Log(offsetXCoord1 + "," + offsetXCoord2 + "Coords X");
-        Debug.Log(offsetYCoord1 + "," + offsetYCoord2 + "Coords X");
-
         BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         BoxesData.TypeNPrefab coord2Obj = map[offsetXCoord2, offsetYCoord2];
 
-
-
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
-        if (!tilesData.locsOfSameTypeTiles.Contains(coord1) || !tilesData.locsOfSameTypeTiles.Contains(coord2))
+        if (tilesData.locsOfSameTypeTiles.Contains(coord1) && tilesData.locsOfSameTypeTiles.Contains(coord2) && coord1 != coord2)
         {
-            tilesData.SwapableLocs.Remove(swapableCordsVector);
-            tilesData.SwapableLocs.TrimExcess();
+            if (!tilesData.swapableLocs.Contains(swapableCordsVector))
+            tilesData.swapableLocs.Add(swapableCordsVector);
         }
 
     }
@@ -106,19 +110,15 @@ public class AvailableLocs : MonoBehaviour
         int offsetXCoord2 =LimitAxes( offsetXCoord1 -  indexX,true) ;
         int offsetYCoord2 =LimitAxes(offsetYCoord1 -  indexY,false) ;
 
-        Debug.Log(offsetXCoord1 + "," + offsetXCoord2 + "Coords X");
-        Debug.Log(offsetYCoord1 + "," + offsetYCoord2 + "Coords X");
-
         BoxesData.TypeNPrefab coord1Obj = map[offsetXCoord1, offsetYCoord1];
         BoxesData.TypeNPrefab coord2Obj = map[offsetXCoord2, offsetYCoord2];
 
-
-
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
-        if (!tilesData.locsOfSameTypeTiles.Contains(coord1) || !tilesData.locsOfSameTypeTiles.Contains(coord2))
+        if (tilesData.locsOfSameTypeTiles.Contains(coord1) && tilesData.locsOfSameTypeTiles.Contains(coord2) && coord1 != coord2)
         {
-            tilesData.SwapableLocs.Remove(swapableCordsVector);
+            if (!tilesData.swapableLocs.Contains(swapableCordsVector))
+                tilesData.swapableLocs.Add(swapableCordsVector);
         }
 
     }
@@ -144,7 +144,7 @@ public class AvailableLocs : MonoBehaviour
 
         BoxesData.TypeNPrefab currentTileToAdd = map[clampedX,clampedy];
         Vector2 coords = new Vector2(currentTileToAdd.x, currentTileToAdd.y);
-        if (!swapableLocations.Contains(coords))
+        if (!swapableLocations.Contains(coords)&&!coords.Equals(tilesData.initialPos))
         swapableLocations.Add(coords);//pernei olles ths dinates thesis kai meta prepei na tsekaris gia na kseskartaris aftes mono
 
     }

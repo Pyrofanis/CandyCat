@@ -6,7 +6,7 @@ using UnityEngine;
 public class TilesData : MonoBehaviour
 {
 
-    [HideInInspector]
+    //[HideInInspector]
     public SpawnBoxes parentSpawnBoxes;
 
     //[HideInInspector]
@@ -15,9 +15,9 @@ public class TilesData : MonoBehaviour
     public Vector3 mousePos;
     public Vector3 wheretomove,direction;
 
-    [HideInInspector]
+    //[HideInInspector]
     public BoxesData.TypeNPrefab nextType;
-    [HideInInspector]
+    //[HideInInspector]
     public BoxesData.TypeNPrefab thisType;
 
     public bool debugLog;
@@ -26,7 +26,8 @@ public class TilesData : MonoBehaviour
 
     public List<Vector2> locsOfSameTypeTiles;
 
-    public List<Vector2> SwapableLocs;
+    public List<Vector2> availableMovesLoc;
+    public List<Vector2> swapableLocs;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +41,6 @@ public class TilesData : MonoBehaviour
     void Update()
     {
         UpdateMap();
-
     }
     private void UpdateMap()
     {

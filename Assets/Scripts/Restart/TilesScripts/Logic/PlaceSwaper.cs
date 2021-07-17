@@ -40,9 +40,11 @@ public class PlaceSwaper : MonoBehaviour
     {
         currentName = gameObject.name;
         tilesData.initialPos = gameObject.transform.localPosition;
+        GetMousePos();
     }
     private void OnMouseDrag()
     {
+        GetMousePos();
         StickToMouse();
         CheckIfItIsSwapable();
     }
@@ -50,12 +52,15 @@ public class PlaceSwaper : MonoBehaviour
     {
         SwapPlaces(stopMovement&&canSwap);
     }
+    private void GetMousePos()
+    {
+        Vector3 mousPosRaw = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        tilesData.mousePos = mousPosRaw;//world to local
+    }
     private void StickToMouse()
     {
-        Vector3 mousPosRaw = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 5);
-        tilesData.mousePos =mousPosRaw;//world to local
         if (!stopMovement)
-        transform.position =new Vector3(tilesData.mousePos.x,tilesData.mousePos.y,5);
+        transform.localPosition =new Vector2(tilesData.mousePos.x,tilesData.mousePos.y);
     }
     private void SwapPlaces(bool canU)
     {
@@ -66,14 +71,14 @@ public class PlaceSwaper : MonoBehaviour
             tilesData.nextType.prefab.name = currentName;
 
             //changing parameters this obj
-            gameObject.transform.position = tilesData.nextType.prefab.transform.localPosition;
+            gameObject.transform.localPosition = new Vector2(tilesData.nextType.x, tilesData.nextType.y);
             tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.x);
             tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.y);
 
             //changing parameters targeted obj
-            tilesData.nextType.prefab.transform.position = tilesData.initialPos;
-            tilesData.nextType.x = Mathf.RoundToInt(transform.localPosition.x);
-            tilesData.nextType.y = Mathf.RoundToInt(transform.localPosition.y);
+            tilesData.nextType.prefab.transform.localPosition = new Vector2(tilesData.initialPos.x,tilesData.initialPos.y);
+            tilesData.nextType.x = Mathf.RoundToInt(tilesData.initialPos.x);
+            tilesData.nextType.y = Mathf.RoundToInt(tilesData.initialPos.y);
 
             //resetting
             currentName = "";
@@ -82,16 +87,16 @@ public class PlaceSwaper : MonoBehaviour
             
 
         }
-        else
+        else if (stopMovement)
         {
             //reseting to default
-            gameObject.transform.position = tilesData.initialPos;
+            gameObject.transform.localPosition = new Vector2(tilesData.initialPos.x, tilesData.initialPos.y);
             stopMovement = false;
         }
     }
     void CheckIfItIsSwapable()
     {
-        foreach(Vector2 coords in tilesData.SwapableLocs)
+        foreach(Vector2 coords in tilesData.swapableLocs)
         {
             if (coords.Equals(new Vector2(tilesData.nextType.x, tilesData.nextType.y)))//if it maches the coordinates that are acceptable it swaps
             {
