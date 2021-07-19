@@ -20,12 +20,7 @@ public class SpawnBoxes : MonoBehaviour
     private void Start()
     {
         SpawnObjs(gameArray.x, gameArray.y);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        FixRandomizer();
     }
     private void SpawnObjs(int lengthX, int lengthY)
     {
@@ -51,25 +46,23 @@ public class SpawnBoxes : MonoBehaviour
             }
         }
     }
-    private void CheckForAllAvailableMaches(BoxesData.TypeNPrefab[,] currentMap, BoxesData.TypeNPrefab currentType)
+    private void FixRandomizer()
     {
-        //check by rows and collumns for pairs of two eg xxo
-        //x check pos
-        CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, currentMap, currentType);
-        //x check neg
-        CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, currentMap, currentType);
-        //y check pos
-        CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, currentMap, currentType);
-        //y check neg
-        CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, currentMap, currentType);
-
-        //checks if a midsection is created ej xox by rows and collumns
-        //x check
-        MidPosCheckCollumnRow(1, 0, currentMap, currentType);
-        //y check
-        MidPosCheckCollumnRow(0, 1, currentMap, currentType);
+        for (int x = 0; x < gameArray.x; x++)
+        {
+            for (int y = 0; y < gameArray.y; y++)
+            {
+                CheckForAllAvailableMaches(arrayList, arrayList[x, y]);
+            }
+        }
     }
-    private void CheckIfMachingCollumnOrRowIsCreated(int indexX, int indexY, int negativeOrPositve, BoxesData.TypeNPrefab[,] map, BoxesData.TypeNPrefab swapableCordsVector)
+    private bool CheckForAllAvailableMaches(BoxesData.TypeNPrefab[,] currentMap, BoxesData.TypeNPrefab currentType)
+    {
+        return CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, currentMap, currentType) || CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, currentMap, currentType)||
+        CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, currentMap, currentType) || CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, currentMap, currentType) || MidPosCheckCollumnRow(1, 0, currentMap, currentType)||
+         MidPosCheckCollumnRow(0, 1, currentMap, currentType);
+    }
+    private bool CheckIfMachingCollumnOrRowIsCreated(int indexX, int indexY, int negativeOrPositve, BoxesData.TypeNPrefab[,] map, BoxesData.TypeNPrefab swapableCordsVector)
     {
         int offsetXCoord1 = LimitAxes(swapableCordsVector.x + indexX * negativeOrPositve, true);
         int offsetYCoord1 = LimitAxes(swapableCordsVector.y + indexY * negativeOrPositve, false);
@@ -82,13 +75,13 @@ public class SpawnBoxes : MonoBehaviour
         Vector2Int coord1 = Vector2Int.CeilToInt(new Vector2(coord1Obj.x, coord1Obj.y));
         Vector2Int coord2 = Vector2Int.CeilToInt(new Vector2(coord2Obj.x, coord2Obj.y));
         //if type in coord 1 is equal to type in coord 2 and coord 1 equals two current object and coord1 obj different with coord2
-        if (coord1Obj.boxType.Equals(coord2Obj.boxType) && coord1Obj.boxType.Equals(swapableCordsVector.boxType) && coord1 != coord2)
-        {
 
-        }
+        return coord1Obj.boxType.Equals(coord2Obj.boxType) && coord1Obj.boxType.Equals(swapableCordsVector.boxType) && coord1 != coord2;
+
+        
 
     }
-    private void MidPosCheckCollumnRow(int indexX, int indexY, BoxesData.TypeNPrefab[,] map, BoxesData.TypeNPrefab swapableCordsVector)
+    private bool MidPosCheckCollumnRow(int indexX, int indexY, BoxesData.TypeNPrefab[,] map, BoxesData.TypeNPrefab swapableCordsVector)
     {
         int offsetXCoord1 = LimitAxes(swapableCordsVector.x + indexX, true);
         int offsetYCoord1 = LimitAxes(swapableCordsVector.y + indexY, false);
@@ -101,10 +94,10 @@ public class SpawnBoxes : MonoBehaviour
         Vector2 coord1 = new Vector2(coord1Obj.x, coord1Obj.y);
         Vector2 coord2 = new Vector2(coord2Obj.x, coord2Obj.y);
         //if type in coord 1 is equal to type in coord 2 and coord 1 equals two current object and coord1 obj different with coord2
-        if (coord1Obj.boxType.Equals(coord2Obj.boxType) && coord1Obj.boxType.Equals(swapableCordsVector.boxType) && coord1 != coord2)
-        {
 
-        }
+        return coord1Obj.boxType.Equals(coord2Obj.boxType) && coord1Obj.boxType.Equals(swapableCordsVector.boxType) && coord1 != coord2;
+
+
 
     }
     private int LimitAxes(int coordToLimit, bool horizontalAxes)

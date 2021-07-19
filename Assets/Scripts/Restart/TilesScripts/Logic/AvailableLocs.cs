@@ -151,8 +151,9 @@ public class AvailableLocs : MonoBehaviour
 
     private void ResetSameFileTileList()
     {
-        //tilesData.locsOfSameTypeTiles.Clear();
-        //tilesData.SwapableLocs.Clear();
+        tilesData.locsOfSameTypeTiles.Clear();
+        tilesData.availableMovesLoc.Clear();
+        tilesData.swapableLocs.Clear();
     }
     private void OnDrawGizmos()
     {
