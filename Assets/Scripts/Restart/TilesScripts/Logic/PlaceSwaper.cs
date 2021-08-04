@@ -22,17 +22,12 @@ public class PlaceSwaper : MonoBehaviour
         tilesData = GetComponent<TilesData>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<TilesData>() != null)
         {
             TilesData adjastentedTile = collision.GetComponent<TilesData>();
-            tilesData.nextType = adjastentedTile.thisType;
+            tilesData.nextTile = adjastentedTile;
             stopMovement = true;
         }
     }
@@ -67,22 +62,31 @@ public class PlaceSwaper : MonoBehaviour
         if (canU)
         {
             //renaming
-            gameObject.name = tilesData.nextType.prefab.name;
-            tilesData.nextType.prefab.name = currentName;
+            gameObject.name = tilesData.nextTile.gameObject.name;
+            tilesData.nextTile.gameObject.name = currentName;
 
             //changing parameters this obj
-            gameObject.transform.localPosition = new Vector2(tilesData.nextType.x, tilesData.nextType.y);
-            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.x);
-            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextType.prefab.transform.localPosition.y);
+            gameObject.transform.localPosition = new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y);
+            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextTile.thisType.prefab.transform.localPosition.x);
+            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextTile.thisType.prefab.transform.localPosition.y);
 
             //changing parameters targeted obj
-            tilesData.nextType.prefab.transform.localPosition = new Vector2(tilesData.initialPos.x,tilesData.initialPos.y);
-            tilesData.nextType.x = Mathf.RoundToInt(tilesData.initialPos.x);
-            tilesData.nextType.y = Mathf.RoundToInt(tilesData.initialPos.y);
+            tilesData.nextTile.gameObject.transform.localPosition = new Vector2(tilesData.initialPos.x,tilesData.initialPos.y);
+            tilesData.nextTile.thisType.x = Mathf.RoundToInt(tilesData.initialPos.x);
+            tilesData.nextTile.thisType.y = Mathf.RoundToInt(tilesData.initialPos.y);
+
+            //changing initial pos both objects
+            tilesData.initialPos = new Vector2(tilesData.thisType.x, tilesData.thisType.y);
+
+            //get tiles data of next type
+            TilesData nextTile = tilesData.nextTile.thisType.prefab.gameObject.GetComponent<TilesData>();
+
+            //change initial pos of next tile
+            nextTile.initialPos = new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y);
 
             //resetting
             currentName = "";
-            tilesData.nextType = new BoxesData.TypeNPrefab();
+            tilesData.nextTile = new TilesData();
             stopMovement = false;
             
 
@@ -98,7 +102,7 @@ public class PlaceSwaper : MonoBehaviour
     {
         foreach(Vector2 coords in tilesData.swapableLocs)
         {
-            if (coords.Equals(new Vector2(tilesData.nextType.x, tilesData.nextType.y)))//if it maches the coordinates that are acceptable it swaps
+            if (coords.Equals(new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y)))//if it maches the coordinates that are acceptable it swaps
             {
                 canSwap = true;
             }
@@ -111,11 +115,11 @@ public class PlaceSwaper : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (tilesData.nextType.prefab != null && tilesData.initialPos != Vector3.zero)
+        if (tilesData.nextTile != null && tilesData.initialPos != Vector3.zero)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextType.prefab.transform.localPosition);
+            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextTile.thisType.prefab.transform.localPosition);
         }
            
-    }
+    }   
 }

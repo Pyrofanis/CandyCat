@@ -16,7 +16,7 @@ public class TilesData : MonoBehaviour
     public Vector3 wheretomove,direction;
 
     //[HideInInspector]
-    public BoxesData.TypeNPrefab nextType;
+    public TilesData nextTile;
     //[HideInInspector]
     public BoxesData.TypeNPrefab thisType;
 
