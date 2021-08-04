@@ -46,12 +46,12 @@ public class SpawnBoxes : MonoBehaviour
                 BoxesData.BoxTypes boxTypes = avainableTiles[index].boxType;
 
                 GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity, this.transform);
-                //objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
+                objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
 
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab, boxTypes, x, y);
-                tilesData.thisType = new BoxesData.TypeNPrefab(objectToEdit, boxTypes, x, y);
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit, boxTypes, x, y);
+                tilesData.thisType = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, boxTypes, x, y);
 
                 typeNPrefabs.Add(currentTypeNPrefab);
                 arrayList[x, y] = currentTypeNPrefab;
@@ -68,6 +68,7 @@ public class SpawnBoxes : MonoBehaviour
         if (x >0)
         {
             previousLeft = arrayList[x - 1, y];
+            previousLeft.currentObject = null;
             previousLeft.x = 0;
             previousLeft.y = 0;
         }
@@ -75,6 +76,7 @@ public class SpawnBoxes : MonoBehaviour
         if (y >0)
         {
             prebiousBellow = arrayList[x, y - 1];
+            prebiousBellow.currentObject = null;
             prebiousBellow.x = 0;
             prebiousBellow.y = 0;
         }
@@ -82,6 +84,7 @@ public class SpawnBoxes : MonoBehaviour
         avainableTiles.Remove(prebiousBellow);
 
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

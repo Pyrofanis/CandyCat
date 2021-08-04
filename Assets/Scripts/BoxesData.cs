@@ -14,12 +14,14 @@ public static class BoxesData
     public struct TypeNPrefab
     {
         public GameObject prefab;
+        public GameObject currentObject;
         public BoxTypes boxType;
         public int x;
         public int y;
-        public TypeNPrefab(GameObject newOBJ,BoxTypes newType,int newX,int newY)
+        public TypeNPrefab(GameObject newOBJ,GameObject newCurrentObj,BoxTypes newType,int newX,int newY)
         {
             this.prefab = newOBJ;
+            this.currentObject = newCurrentObj;
             this.boxType = newType;
             this.x = newX;
             this.y = newY;

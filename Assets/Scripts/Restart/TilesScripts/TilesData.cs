@@ -34,7 +34,6 @@ public class TilesData : MonoBehaviour
         initialPos = new Vector3(transform.localPosition.x,transform.localPosition.y,5);
         parentSpawnBoxes = transform.parent.GetComponent<SpawnBoxes>();
         currentMap = parentSpawnBoxes.arrayList;
-
     }
 
     // Update is called once per frame

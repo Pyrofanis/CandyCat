@@ -67,8 +67,8 @@ public class PlaceSwaper : MonoBehaviour
 
             //changing parameters this obj
             gameObject.transform.localPosition = new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y);
-            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextTile.thisType.prefab.transform.localPosition.x);
-            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextTile.thisType.prefab.transform.localPosition.y);
+            tilesData.thisType.x = Mathf.RoundToInt(tilesData.nextTile.thisType.currentObject.transform.localPosition.x);
+            tilesData.thisType.y = Mathf.RoundToInt(tilesData.nextTile.thisType.currentObject.transform.localPosition.y);
 
             //changing parameters targeted obj
             tilesData.nextTile.gameObject.transform.localPosition = new Vector2(tilesData.initialPos.x,tilesData.initialPos.y);
@@ -79,7 +79,7 @@ public class PlaceSwaper : MonoBehaviour
             tilesData.initialPos = new Vector2(tilesData.thisType.x, tilesData.thisType.y);
 
             //get tiles data of next type
-            TilesData nextTile = tilesData.nextTile.thisType.prefab.gameObject.GetComponent<TilesData>();
+            TilesData nextTile = tilesData.nextTile.thisType.currentObject.gameObject.GetComponent<TilesData>();
 
             //change initial pos of next tile
             nextTile.initialPos = new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y);
@@ -118,7 +118,7 @@ public class PlaceSwaper : MonoBehaviour
         if (tilesData.nextTile != null && tilesData.initialPos != Vector3.zero)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextTile.thisType.prefab.transform.localPosition);
+            Gizmos.DrawLine(tilesData.initialPos, tilesData.nextTile.thisType.currentObject.transform.localPosition);
         }
            
     }   
