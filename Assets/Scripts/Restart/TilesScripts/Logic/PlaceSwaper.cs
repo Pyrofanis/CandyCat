@@ -41,6 +41,7 @@ public class PlaceSwaper : MonoBehaviour
     {
         GetMousePos();
         StickToMouse();
+        if (tilesData.nextTile!=null)
         CheckIfItIsSwapable();
     }
     private void OnMouseUp()
@@ -75,18 +76,14 @@ public class PlaceSwaper : MonoBehaviour
             tilesData.nextTile.thisType.x = Mathf.RoundToInt(tilesData.initialPos.x);
             tilesData.nextTile.thisType.y = Mathf.RoundToInt(tilesData.initialPos.y);
 
-            //changing initial pos both objects
-            tilesData.initialPos = new Vector2(tilesData.thisType.x, tilesData.thisType.y);
-
             //get tiles data of next type
             TilesData nextTile = tilesData.nextTile.thisType.currentObject.gameObject.GetComponent<TilesData>();
 
             //change initial pos of next tile
             nextTile.initialPos = new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y);
-
             //resetting
             currentName = "";
-            tilesData.nextTile = new TilesData();
+            tilesData.nextTile = null;
             stopMovement = false;
             
 
@@ -100,7 +97,7 @@ public class PlaceSwaper : MonoBehaviour
     }
     void CheckIfItIsSwapable()
     {
-        foreach(Vector2 coords in tilesData.swapableLocs)
+        foreach(Vector2 coords in tilesData.availableMovesLoc)
         {
             if (coords.Equals(new Vector2(tilesData.nextTile.thisType.x, tilesData.nextTile.thisType.y)))//if it maches the coordinates that are acceptable it swaps
             {

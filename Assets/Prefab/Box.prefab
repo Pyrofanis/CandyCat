@@ -149,6 +149,7 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   currentNameSearch: 
   stopMovement: 0
+  canSwap: 0
 --- !u!114 &8457361288500939956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,19 +167,17 @@ MonoBehaviour:
   mousePos: {x: 0, y: 0, z: 0}
   wheretomove: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
-  nextType:
-    prefab: {fileID: 0}
-    boxType: 0
-    x: 0
-    y: 0
+  nextTile: {fileID: 0}
   thisType:
     prefab: {fileID: 0}
+    currentObject: {fileID: 0}
     boxType: 0
     x: 0
     y: 0
   debugLog: 0
-  currentMap: []
   locsOfSameTypeTiles: []
+  availableMovesLoc: []
+  swapableLocs: []
 --- !u!114 &1370480780281629437
 MonoBehaviour:
   m_ObjectHideFlags: 0

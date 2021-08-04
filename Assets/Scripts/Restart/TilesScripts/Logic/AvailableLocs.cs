@@ -45,7 +45,7 @@ public class AvailableLocs : MonoBehaviour
     }
     private void GetNearObjs()
     {
-        adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 2);
+        adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 4);
 
     }
 
@@ -54,10 +54,10 @@ public class AvailableLocs : MonoBehaviour
     {
             //adds all available moveable locations
 
-            AddAvailableTilesToMove(tilesData.currentMap, 1, 0, tilesData.availableMovesLoc);
-            AddAvailableTilesToMove(tilesData.currentMap, -1, 0, tilesData.availableMovesLoc);
-            AddAvailableTilesToMove(tilesData.currentMap, 0, 1, tilesData.availableMovesLoc);
-            AddAvailableTilesToMove(tilesData.currentMap, 0, -1, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.parentSpawnBoxes.arrayList, 1, 0, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.parentSpawnBoxes.arrayList, -1, 0, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.parentSpawnBoxes.arrayList, 0, 1, tilesData.availableMovesLoc);
+            AddAvailableTilesToMove(tilesData.parentSpawnBoxes.arrayList, 0, -1, tilesData.availableMovesLoc);
 
         //removes not symbiotic choices
         foreach(Vector2 vector in tilesData.availableMovesLoc)
@@ -71,19 +71,19 @@ public class AvailableLocs : MonoBehaviour
     {
         //check by rows and collumns for pairs of two eg xxo
         //x check pos
-        CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, tilesData.currentMap, currentAvailableMoveVector);
+        CheckIfMachingCollumnOrRowIsCreated(1, 0, 1, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
         //x check neg
-        CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, tilesData.currentMap, currentAvailableMoveVector);
+        CheckIfMachingCollumnOrRowIsCreated(1, 0, -1, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
         //y check pos
-        CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, tilesData.currentMap, currentAvailableMoveVector);
+        CheckIfMachingCollumnOrRowIsCreated(0, 1, 1, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
         //y check neg
-        CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, tilesData.currentMap, currentAvailableMoveVector);
+        CheckIfMachingCollumnOrRowIsCreated(0, 1, -1, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
 
         //checks if a midsection is created ej xox by rows and collumns
         //x check
-        MidPosCheckCollumnRow(1, 0, tilesData.currentMap, currentAvailableMoveVector);
+        MidPosCheckCollumnRow(1, 0, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
         //y check
-        MidPosCheckCollumnRow(0, 1, tilesData.currentMap, currentAvailableMoveVector);
+        MidPosCheckCollumnRow(0, 1, tilesData.parentSpawnBoxes.arrayList, currentAvailableMoveVector);
     }
     private void CheckIfMachingCollumnOrRowIsCreated(int indexX,int indexY,int negativeOrPositve,BoxesData.TypeNPrefab[,] map,Vector2Int swapableCordsVector)
     {
@@ -159,6 +159,6 @@ public class AvailableLocs : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (tilesData.debugLog)
-        Gizmos.DrawWireSphere(transform.position, 2);
+        Gizmos.DrawWireSphere(transform.position, 4);
     }
 }

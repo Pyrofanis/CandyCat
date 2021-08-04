@@ -12,11 +12,10 @@ public class SpawnBoxes : MonoBehaviour
     [Header("Active Prefabs In Scene")]
     private List<BoxesData.TypeNPrefab> typeNPrefabs;
 
+    [HideInInspector]
     [SerializeField]
     private List<BoxesData.TypeNPrefab> avainableTiles;
-    [SerializeField]
     private BoxesData.TypeNPrefab previousLeft;
-    [SerializeField]
     private BoxesData.TypeNPrefab prebiousBellow;
 
 
