@@ -28,6 +28,7 @@ public class AvailableLocs : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if(!tilesData.debugLog)
         ResetSameFileTileList();
     }
     private void FindSameTypeTiles()
@@ -44,7 +45,7 @@ public class AvailableLocs : MonoBehaviour
     }
     private void GetNearObjs()
     {
-        adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 4);
+        adjustenedObjs = Physics2D.OverlapCircleAll(transform.position, 2);
 
     }
 
