@@ -251,6 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581780719}
   - component: {fileID: 581780720}
+  - component: {fileID: 581780718}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -258,6 +259,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &581780718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581780717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cbc9bfefba6444993ba4c8fe6823b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &581780719
 Transform:
   m_ObjectHideFlags: 0
@@ -290,18 +303,18 @@ MonoBehaviour:
   Prefabs:
   - prefab: {fileID: 871467619298775616, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
     currentObject: {fileID: 0}
+    sprite: {fileID: 0}
     boxType: 0
-    x: 0
-    y: 0
+    selected: 0
   - prefab: {fileID: 3988468825958285679, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
     currentObject: {fileID: 0}
+    sprite: {fileID: 0}
     boxType: 1
-    x: 0
-    y: 0
+    selected: 0
   - prefab: {fileID: 5922364730598015139, guid: 0e503c5dfbaca9d4fa1028097158bf6c, type: 3}
     currentObject: {fileID: 0}
+    sprite: {fileID: 0}
     boxType: 2
-    x: 0
-    y: 0
+    selected: 0
   typeNPrefabs: []
   avainableTiles: []

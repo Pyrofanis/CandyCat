@@ -14,17 +14,19 @@ public static class BoxesData
     public struct TypeNPrefab
     {
         public GameObject prefab;
-        public GameObject currentObject;
+        public GameObject currentObject;//the current object to be changed /inital obj like inital pos used to work
+        public Sprite sprite;
         public BoxTypes boxType;
-        public int x;
-        public int y;
-        public TypeNPrefab(GameObject newOBJ,GameObject newCurrentObj,BoxTypes newType,int newX,int newY)
+        public bool selected;
+
+        public TypeNPrefab(GameObject newOBJ,GameObject newCurrentObj,Sprite newSprite,BoxTypes newType,bool newBool)
         {
             this.prefab = newOBJ;
             this.currentObject = newCurrentObj;
+            this.sprite = newSprite;
             this.boxType = newType;
-            this.x = newX;
-            this.y = newY;
+            this.selected = newBool;
+
         }
     }
     [System.Serializable]

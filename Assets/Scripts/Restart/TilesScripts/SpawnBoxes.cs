@@ -19,7 +19,7 @@ public class SpawnBoxes : MonoBehaviour
     private BoxesData.TypeNPrefab prebiousBellow;
 
 
-    public BoxesData.TypeNPrefab[,] arrayList;
+    public static BoxesData.TypeNPrefab[,] arrayList;
     // Start is called before the first frame update
     void Awake()
     {
@@ -43,14 +43,15 @@ public class SpawnBoxes : MonoBehaviour
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
                 BoxesData.BoxTypes boxTypes = avainableTiles[index].boxType;
-
                 GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity, this.transform);
                 objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
 
+                Sprite currentSprite = objectToEdit.GetComponent<SpriteRenderer>().sprite;
+
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit, boxTypes, x, y);
-                tilesData.thisType = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, boxTypes, x, y);
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,false);
+                tilesData.tile = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, currentSprite, boxTypes,false);
 
                 typeNPrefabs.Add(currentTypeNPrefab);
                 arrayList[x, y] = currentTypeNPrefab;
@@ -68,16 +69,14 @@ public class SpawnBoxes : MonoBehaviour
         {
             previousLeft = arrayList[x - 1, y];
             previousLeft.currentObject = null;
-            previousLeft.x = 0;
-            previousLeft.y = 0;
+            previousLeft.sprite = null;
         }
 
         if (y >0)
         {
             prebiousBellow = arrayList[x, y - 1];
             prebiousBellow.currentObject = null;
-            prebiousBellow.x = 0;
-            prebiousBellow.y = 0;
+            prebiousBellow.sprite = null;
         }
         avainableTiles.Remove(previousLeft);
         avainableTiles.Remove(prebiousBellow);

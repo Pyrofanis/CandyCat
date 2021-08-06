@@ -2,44 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlaceSwaper),typeof(AvailableLocs))]
+//[RequireComponent(typeof(PlaceSwaper),typeof(AvailableLocs))]
 public class TilesData : MonoBehaviour
 {
-
     //[HideInInspector]
-    public SpawnBoxes parentSpawnBoxes;
+    public BoxesData.TypeNPrefab tile;
 
-    //[HideInInspector]
-    public Vector3 initialPos;
-    //[HideInInspector]
-    public Vector3 mousePos;
-    public Vector3 wheretomove,direction;
+    private SpriteRenderer sprite;
 
-    //[HideInInspector]
-    public TilesData nextTile;
-    //[HideInInspector]
-    public BoxesData.TypeNPrefab thisType;
-
-    public bool debugLog;
-
-    //public BoxesData.TypeNPrefab[,] currentMap;
-
-    public List<Vector2> locsOfSameTypeTiles;
-
-    public List<Vector2> availableMovesLoc;
-    public List<Vector2> swapableLocs;
     // Start is called before the first frame update
     void Start()
     {
-        initialPos = new Vector3(transform.localPosition.x,transform.localPosition.y,5);
-        parentSpawnBoxes = transform.parent.GetComponent<SpawnBoxes>();
+
+        sprite = GetComponent<SpriteRenderer>();
+
     }
     private void Update()
     {
         UpdateMap();
+        UpdateTileVisually();
     }
     private void UpdateMap()
     {
-        parentSpawnBoxes.arrayList[thisType.x, thisType.y] = thisType;
+        Vector2Int coords =Vector2Int.CeilToInt(transform.position);
+        SpawnBoxes.arrayList[coords.x, coords.y] = tile;
+    }
+    private void UpdateTileVisually()
+    {
+        sprite.sprite = tile.sprite;
+        gameObject.name = tile.prefab.name+"("+Mathf.RoundToInt(transform.position.x)+","+Mathf.RoundToInt(transform.position.y)+")";
     }
 }

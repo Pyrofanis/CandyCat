@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 871467619298775629}
   - component: {fileID: 871467619298775618}
   - component: {fileID: 871467619298775619}
-  - component: {fileID: 6882627069837130633}
   - component: {fileID: 8457361288500939956}
-  - component: {fileID: 1370480780281629437}
+  - component: {fileID: -1622296347101116901}
   m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
-  m_Color: {r: 0, g: 0.84923625, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,22 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &6882627069837130633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871467619298775616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8317512a9d7c44c4b8029234d22ac211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {x: 0, y: 0}
-  currentNameSearch: 
-  stopMovement: 0
-  canSwap: 0
 --- !u!114 &8457361288500939956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,23 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b453bfaba406392438416be1fe602ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSpawnBoxes: {fileID: 0}
-  initialPos: {x: 0, y: 0, z: 0}
-  mousePos: {x: 0, y: 0, z: 0}
-  wheretomove: {x: 0, y: 0, z: 0}
-  direction: {x: 0, y: 0, z: 0}
-  nextTile: {fileID: 0}
-  thisType:
+  tile:
     prefab: {fileID: 0}
     currentObject: {fileID: 0}
+    sprite: {fileID: 0}
     boxType: 0
-    x: 0
-    y: 0
-  debugLog: 0
-  locsOfSameTypeTiles: []
-  availableMovesLoc: []
-  swapableLocs: []
---- !u!114 &1370480780281629437
+    selected: 0
+--- !u!114 &-1622296347101116901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,6 +160,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 871467619298775616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e69d0de1937a57944811a5c4e834774e, type: 3}
+  m_Script: {fileID: 11500000, guid: a480c5215fefd0b43bb63d9f5e46eed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debug: 0
+  debugCurrent:
+    prefab: {fileID: 0}
+    currentObject: {fileID: 0}
+    sprite: {fileID: 0}
+    boxType: 0
+    selected: 0
+  devugNext:
+    prefab: {fileID: 0}
+    currentObject: {fileID: 0}
+    sprite: {fileID: 0}
+    boxType: 0
+    selected: 0
