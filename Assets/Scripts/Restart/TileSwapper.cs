@@ -1,8 +1,9 @@
 using UnityEngine;
-
-public class TilesSwaperAssistant : MonoBehaviour
+using System.Collections;
+using System.Collections.Generic;
+public class TileSwapper : MonoBehaviour
 {
-    TilesData tilesData;
+   private TilesData tilesData;
 
     private SpriteRenderer sprite;
 
@@ -10,9 +11,10 @@ public class TilesSwaperAssistant : MonoBehaviour
     public static BoxesData.TypeNPrefab currentTile;
     public static BoxesData.TypeNPrefab nextTile;
 
-    public bool Debug;
+    public BoxesData.TypeNPrefab debugCur, debugNext;
+    public List<GameObject> gameObjects;
 
-    public BoxesData.TypeNPrefab debugCurrent, devugNext;
+    private Vector2[] castDir = new Vector2[]{ Vector2.up, Vector2.down, Vector2.left, Vector2.right };
     private void Start()
     {
         tilesData = GetComponent<TilesData>();
@@ -21,14 +23,17 @@ public class TilesSwaperAssistant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        debugCur = currentTile;
+        debugNext = nextTile;
+        if (currentTile.currentObject!=null)
+        gameObjects = AdjustentTiles(currentTile.currentObject);
         SelectionIndicator();
-        debugCurrent = currentTile;
-        devugNext = nextTile;
     }
     private void OnMouseDown()
     {
         Selected();
         Swap(currentTile.selected && nextTile.selected);
+        Debug.Log(tilesData.tile.currentObject.name);
     }
     private void OnMouseUp()
     {
@@ -51,18 +56,16 @@ public class TilesSwaperAssistant : MonoBehaviour
             currentTile = tilesData.tile;
             currentTile.selected = true;
         }
-        else if (nextTile.currentObject == null)
+        else if (AdjustentTiles(currentTile.currentObject).Contains(tilesData.tile.currentObject))
         {
             nextTile = tilesData.tile;
             nextTile.selected = true;
         }
-    }
-    private void DeselectTile(BoxesData.TypeNPrefab currentTile, bool resetBools)
-    {
-        currentTile.prefab = null;
-        currentTile.currentObject = null;
-        if (resetBools)
-            currentTile.selected = false;
+        else
+        {
+            currentTile = tilesData.tile;
+            currentTile.selected = true;
+        }
     }
     public void Swap(bool swap)//needs to check if both tiles are selected
     {
@@ -94,7 +97,23 @@ public class TilesSwaperAssistant : MonoBehaviour
 
         currentTile = new BoxesData.TypeNPrefab();
         nextTile = new BoxesData.TypeNPrefab();
-
-
+    }
+    private GameObject AdjustentTile(GameObject gameObject,Vector2 castDir)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, castDir);
+        if (hit.collider != null)
+        {
+            return hit.collider.gameObject;
+        }
+        return null;
+    }
+    private List<GameObject> AdjustentTiles(GameObject gameObject)
+    {
+       List<GameObject> adjustenredTiles = new List<GameObject>();
+        for (int i = 0; i < castDir.Length; i++)
+        {
+            adjustenredTiles.Add(AdjustentTile(gameObject, castDir[i]));
+        }
+        return adjustenredTiles;
     }
 }
