@@ -42,7 +42,7 @@ public class TileSwapper : MonoBehaviour
     }
     private void SelectionIndicator()
     {
-        if ((gameObject.Equals(currentTile.currentObject) && currentTile.selected) || (gameObject.Equals(nextTile.currentObject) && nextTile.selected))
+        if (gameObject.Equals(currentTile.currentObject) || gameObject.Equals(nextTile.currentObject))
         {
             sprite.color = Color.grey;
         }
@@ -58,6 +58,7 @@ public class TileSwapper : MonoBehaviour
             currentTile = tilesData.tile;
             currentTile.selected = true;
         }
+
         else if (AdjustentTiles(currentTile.currentObject).Contains(tilesData.tile.currentObject))
         {
             nextTile = tilesData.tile;
@@ -69,6 +70,7 @@ public class TileSwapper : MonoBehaviour
             currentTile.selected = true;
         }
     }
+    //swapping
     public void Swap(bool swap)//needs to check if both tiles are selected
     {
         if (swap)
@@ -104,6 +106,7 @@ public class TileSwapper : MonoBehaviour
         currentTile = new BoxesData.TypeNPrefab();
         nextTile = new BoxesData.TypeNPrefab();
     }
+    //swapping
 
     //adjustent tiles
     private GameObject AdjustentTile(GameObject gameObject, Vector2 castDir)
@@ -126,7 +129,8 @@ public class TileSwapper : MonoBehaviour
     }
     //adjustent tiles
 
-    private List<GameObject> FindMatches(GameObject gameObject,Vector2 castDir)
+    //matching
+    private List<GameObject> FindMatches(GameObject gameObject, Vector2 castDir)
     {
         List<GameObject> matchingTiles = new List<GameObject>();
         RaycastHit2D hit2D = Physics2D.Raycast(gameObject.transform.position, castDir);
@@ -142,19 +146,19 @@ public class TileSwapper : MonoBehaviour
         }
         return matchingTiles;
     }
-    private void ClearMatch(GameObject gameObject,Vector2[] directions)
+    private void ClearMatch(GameObject gameObject, Vector2[] directions)
     {
         List<GameObject> matchingTiles = new List<GameObject>();
         for (int i = 0; i < directions.Length; i++)
         {
-            matchingTiles.AddRange(FindMatches(gameObject,directions[i]));
-            dbuglist.AddRange(FindMatches(gameObject,directions[i]));          
+            matchingTiles.AddRange(FindMatches(gameObject, directions[i]));
+            dbuglist.AddRange(FindMatches(gameObject, directions[i]));
         }
         if (matchingTiles.Count >= 2)
         {
             foreach (GameObject @object in matchingTiles)
             {
-                @object.GetComponent<TilesData>().tile =new BoxesData.TypeNPrefab();
+                @object.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
             }
             matchFound = true;
         }
@@ -165,7 +169,8 @@ public class TileSwapper : MonoBehaviour
         ClearMatch(gameObject, new Vector2[] { Vector2.left, Vector2.right });//horizontal
         if (this.matchFound)
         {
-        gameObject.GetComponent<TilesData>().tile=new BoxesData.TypeNPrefab();
+            gameObject.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
         }
     }
+    //matching
 }
