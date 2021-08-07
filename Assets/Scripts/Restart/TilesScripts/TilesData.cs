@@ -30,6 +30,9 @@ public class TilesData : MonoBehaviour
     private void UpdateTileVisually()
     {
         sprite.sprite = tile.sprite;
-        gameObject.name = tile.prefab.name+"("+Mathf.RoundToInt(transform.position.x)+","+Mathf.RoundToInt(transform.position.y)+")";
+        string coordsString = "(" + Mathf.RoundToInt(transform.position.x) + "," + Mathf.RoundToInt(transform.position.y) + ")";
+        if (tile.prefab != null)
+            gameObject.name = tile.prefab.name + coordsString;
+        else gameObject.name = "Empty"+coordsString;
     }
 }

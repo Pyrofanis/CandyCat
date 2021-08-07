@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class BoxesData 
+public static class BoxesData
 {
-    public  enum BoxTypes{
+    public enum BoxTypes
+    {
+        none,
         type1,
         type2,
         type3
@@ -19,7 +21,7 @@ public static class BoxesData
         public BoxTypes boxType;
         public bool selected;
 
-        public TypeNPrefab(GameObject newOBJ,GameObject newCurrentObj,Sprite newSprite,BoxTypes newType,bool newBool)
+        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType, bool newBool)
         {
             this.prefab = newOBJ;
             this.currentObject = newCurrentObj;
@@ -35,7 +37,7 @@ public static class BoxesData
         public int x;
         public int y;
         private GameObject[] spawnedObjs;
-        public GameArray (int newX,int NewY,GameObject[] newObjs)
+        public GameArray(int newX, int NewY, GameObject[] newObjs)
         {
             this.x = newX;
             this.y = NewY;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class TileSwapper : MonoBehaviour
 {
-   private TilesData tilesData;
+    private TilesData tilesData;
 
     private SpriteRenderer sprite;
 
@@ -12,9 +12,13 @@ public class TileSwapper : MonoBehaviour
     public static BoxesData.TypeNPrefab nextTile;
 
     public BoxesData.TypeNPrefab debugCur, debugNext;
-    public List<GameObject> gameObjects;
 
-    private Vector2[] castDir = new Vector2[]{ Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+    [SerializeField]
+    private bool matchFound;
+
+    public List<GameObject> dbuglist;
+
+    private Vector2[] castDir = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
     private void Start()
     {
         tilesData = GetComponent<TilesData>();
@@ -25,15 +29,13 @@ public class TileSwapper : MonoBehaviour
     {
         debugCur = currentTile;
         debugNext = nextTile;
-        if (currentTile.currentObject!=null)
-        gameObjects = AdjustentTiles(currentTile.currentObject);
-        SelectionIndicator();
+        if (currentTile.currentObject != null)
+            SelectionIndicator();
     }
     private void OnMouseDown()
     {
         Selected();
         Swap(currentTile.selected && nextTile.selected);
-        Debug.Log(tilesData.tile.currentObject.name);
     }
     private void OnMouseUp()
     {
@@ -90,18 +92,24 @@ public class TileSwapper : MonoBehaviour
         currentTile.sprite = tempTile.sprite;
 
         //changes instance of current
-        currentTile.currentObject.GetComponent<TilesData>().tile = currentTile;
+        TilesData currentTiledata = currentTile.currentObject.GetComponent<TilesData>();
+        currentTiledata.tile = currentTile;
         //changes instance of next
-        nextTile.currentObject.GetComponent<TilesData>().tile = nextTile;
+        TilesData nextTileData = nextTile.currentObject.GetComponent<TilesData>();
+        nextTileData.tile = nextTile;
 
+        ClearMatchAll(currentTile.currentObject);
+        ClearMatchAll(nextTile.currentObject);
 
         currentTile = new BoxesData.TypeNPrefab();
         nextTile = new BoxesData.TypeNPrefab();
     }
-    private GameObject AdjustentTile(GameObject gameObject,Vector2 castDir)
+
+    //adjustent tiles
+    private GameObject AdjustentTile(GameObject gameObject, Vector2 castDir)
     {
         RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, castDir);
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.GetComponent<TilesData>().tile.boxType.Equals(tilesData.tile.boxType))
         {
             return hit.collider.gameObject;
         }
@@ -109,11 +117,55 @@ public class TileSwapper : MonoBehaviour
     }
     private List<GameObject> AdjustentTiles(GameObject gameObject)
     {
-       List<GameObject> adjustenredTiles = new List<GameObject>();
+        List<GameObject> adjustenredTiles = new List<GameObject>();
         for (int i = 0; i < castDir.Length; i++)
         {
             adjustenredTiles.Add(AdjustentTile(gameObject, castDir[i]));
         }
         return adjustenredTiles;
+    }
+    //adjustent tiles
+
+    private List<GameObject> FindMatches(GameObject gameObject,Vector2 castDir)
+    {
+        List<GameObject> matchingTiles = new List<GameObject>();
+        RaycastHit2D hit2D = Physics2D.Raycast(gameObject.transform.position, castDir);
+        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(gameObject.GetComponent<TilesData>().tile.boxType))
+        {
+            if (!matchingTiles.Contains(hit2D.collider.gameObject))
+                matchingTiles.Add(hit2D.collider.gameObject);
+            else
+            {
+                hit2D.collider.enabled = false;
+            }
+            hit2D = Physics2D.Raycast(transform.position, Vector2.up);
+        }
+        return matchingTiles;
+    }
+    private void ClearMatch(GameObject gameObject,Vector2[] directions)
+    {
+        List<GameObject> matchingTiles = new List<GameObject>();
+        for (int i = 0; i < directions.Length; i++)
+        {
+            matchingTiles.AddRange(FindMatches(gameObject,directions[i]));
+            dbuglist.AddRange(FindMatches(gameObject,directions[i]));          
+        }
+        if (matchingTiles.Count >= 2)
+        {
+            foreach (GameObject @object in matchingTiles)
+            {
+                @object.GetComponent<TilesData>().tile =new BoxesData.TypeNPrefab();
+            }
+            matchFound = true;
+        }
+    }
+    private void ClearMatchAll(GameObject gameObject)
+    {
+        ClearMatch(gameObject, new Vector2[] { Vector2.up, Vector2.down });//vertical
+        ClearMatch(gameObject, new Vector2[] { Vector2.left, Vector2.right });//horizontal
+        if (this.matchFound)
+        {
+        gameObject.GetComponent<TilesData>().tile=new BoxesData.TypeNPrefab();
+        }
     }
 }
