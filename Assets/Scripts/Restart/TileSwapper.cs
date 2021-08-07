@@ -11,6 +11,8 @@ public class TileSwapper : MonoBehaviour
     public static BoxesData.TypeNPrefab currentTile;
     public static BoxesData.TypeNPrefab nextTile;
 
+    private SpawnBoxes spawnBoxes;
+
     public BoxesData.TypeNPrefab debugCur, debugNext;
 
     [SerializeField]
@@ -23,12 +25,15 @@ public class TileSwapper : MonoBehaviour
     {
         tilesData = GetComponent<TilesData>();
         sprite = GetComponent<SpriteRenderer>();
+        spawnBoxes = GetComponentInParent<SpawnBoxes>();
     }
     // Update is called once per frame
     void Update()
     {
         debugCur = currentTile;
         debugNext = nextTile;
+        //if (!tilesData.tile.boxType.Equals(BoxesData.BoxTypes.none))
+        //ClearMatchAll(gameObject);
         if (currentTile.currentObject != null)
             SelectionIndicator();
     }
@@ -103,8 +108,11 @@ public class TileSwapper : MonoBehaviour
         ClearMatchAll(currentTile.currentObject);
         ClearMatchAll(nextTile.currentObject);
 
+        StartCoroutine(spawnBoxes.ReFill());
+
         currentTile = new BoxesData.TypeNPrefab();
         nextTile = new BoxesData.TypeNPrefab();
+        
     }
     //swapping
 
@@ -142,7 +150,7 @@ public class TileSwapper : MonoBehaviour
             {
                 hit2D.collider.enabled = false;
             }
-            hit2D = Physics2D.Raycast(transform.position, Vector2.up);
+            hit2D = Physics2D.Raycast(transform.position, castDir);
         }
         return matchingTiles;
     }
@@ -170,7 +178,9 @@ public class TileSwapper : MonoBehaviour
         if (this.matchFound)
         {
             gameObject.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
+            matchFound = false;
         }
+
     }
     //matching
 }

@@ -18,6 +18,11 @@ public class SpawnBoxes : MonoBehaviour
     private BoxesData.TypeNPrefab previousLeft;
     private BoxesData.TypeNPrefab prebiousBellow;
 
+    [Header("Time for Shifting Delay")]
+    [SerializeField]
+    [Range(0,1)]
+    private float shiftingTileDelay;
+
 
     public static BoxesData.TypeNPrefab[,] arrayList;
     // Start is called before the first frame update
@@ -83,6 +88,29 @@ public class SpawnBoxes : MonoBehaviour
 
     }
 
+    public IEnumerator  ReFill()
+    {
+        yield return new WaitForSeconds(shiftingTileDelay);
+        for (int x = 0; x < gameArray.x; x++)
+        {
+            for (int y = 0; y < gameArray.y; y++)
+            {
+                if (arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
+                {
+                    Randomizer(x, y);
+
+                    int index = Random.Range(0, avainableTiles.Count);
+                    GameObject currentPrefab = avainableTiles[index].prefab;
+                    BoxesData.BoxTypes boxTypes = avainableTiles[index].boxType;
+                    Sprite sprite = avainableTiles[index].prefab.GetComponent<SpriteRenderer>().sprite;
+                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.prefab = currentPrefab;
+                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = boxTypes;
+                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.sprite = sprite;
+                    arrayList[x, y].currentObject.GetComponent<Collider2D>().enabled = true;
+                }
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
