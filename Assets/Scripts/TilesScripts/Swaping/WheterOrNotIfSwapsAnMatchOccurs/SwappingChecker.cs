@@ -6,6 +6,7 @@ public class SwappingChecker : MonoBehaviour
 {
     private static Vector2[] horizontal = new Vector2[] { Vector2.left, Vector2.right };
     private static Vector2[] vertical = new Vector2[] { Vector2.up, Vector2.down };
+
     // Start is called before the first frame update
     void Start()
     {

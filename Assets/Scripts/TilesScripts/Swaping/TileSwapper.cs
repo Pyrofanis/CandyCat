@@ -5,6 +5,8 @@ using UnityEngine;
 public class TileSwapper : MonoBehaviour
 {
     public bool canSwap;
+
+    public List<BoxesData.TypeNPrefab> dbgL;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,9 @@ public class TileSwapper : MonoBehaviour
     }
     private void areSelectionsViable()
     {
-        if (SwappingChecker.CombinationsFound(TileSelection.current.currentObject, TileSelection.next.currentObject).Count >= 2)
+        List<BoxesData.TypeNPrefab> currentCombos = SwappingChecker.CombinationsFound(TileSelection.current.currentObject, TileSelection.next.currentObject);
+        dbgL = currentCombos;
+        if (currentCombos.Count >= 2)
         {
             canSwap = true;
         }
