@@ -23,10 +23,15 @@ public class SwappingChecker : MonoBehaviour
         BoxesData.TypeNPrefab wantedTypeType = wantedTypeOBJ.GetComponent<TilesData>().tile;
         RaycastHit2D hit2D = Physics2D.Raycast(castRaysFrom.transform.position, direction);
 
-        while (hit2D.collider != null && hit2D.collider.GetComponent<BoxesData.TypeNPrefab>().boxType.Equals(wantedTypeType.boxType))
+        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(wantedTypeType.boxType))
         {
-            matches.Add(hit2D.collider.GetComponent<TilesData>().tile);
+            if (!matches.Contains(hit2D.collider.GetComponent<TilesData>().tile))
+                matches.Add(hit2D.collider.GetComponent<TilesData>().tile);
+            else
+                hit2D.collider.enabled = false;         
             hit2D = Physics2D.Raycast(castRaysFrom.transform.position, direction);
+     
+
         }
         return matches;
 
