@@ -104,13 +104,11 @@ public class TileSwapper : MonoBehaviour
         TilesData nextTileData = nextTile.currentObject.GetComponent<TilesData>();
         nextTileData.tile = nextTile;
 
-        ClearMatchAll(currentTile.currentObject);
-        ClearMatchAll(nextTile.currentObject);
+        ClearMatchAll(gameObject);
+
 
         StartCoroutine(spawnBoxes.ReFill());
-        StopCoroutine(spawnBoxes.ReFill());
         Combo();
-        StopCoroutine(spawnBoxes.ReFill());
         StartCoroutine(spawnBoxes.ReFill());
 
         EnableAllColliders();
@@ -165,7 +163,6 @@ public class TileSwapper : MonoBehaviour
         for (int i = 0; i < directions.Length; i++)
         {
             matchingTiles.AddRange(FindMatches(gameObject, directions[i]));
-            dbuglist.AddRange(FindMatches(gameObject, directions[i]));
         }
         if (matchingTiles.Count >= 2)
         {
@@ -173,19 +170,24 @@ public class TileSwapper : MonoBehaviour
             {
                 yield return new WaitForSeconds(spawnBoxes.shiftingTileDelay / matchingTiles.Count);
                 @object.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
+                Debug.LogError(@object.name + "," + gameObject.name);
             }
             matchFound = true;
         }
     }
     private void ClearMatchAll(GameObject gameObject)
     {
+
         StartCoroutine(ClearMatch(gameObject, new Vector2[] { Vector2.up, Vector2.down }));//vertical
         StartCoroutine(ClearMatch(gameObject, new Vector2[] { Vector2.left, Vector2.right }));//horizontal
         if (this.matchFound)
         {
             gameObject.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
             matchFound = false;
+            Debug.LogError(gameObject.name);
+
         }
+
 
     }
     //matching
