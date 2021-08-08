@@ -15,6 +15,8 @@ public class TileSwapper : MonoBehaviour
 
     public BoxesData.TypeNPrefab debugCur, debugNext;
 
+    public List<GameObject> currentMatchThis;
+
     [SerializeField]
     private bool matchFound;
 
@@ -104,11 +106,11 @@ public class TileSwapper : MonoBehaviour
         TilesData nextTileData = nextTile.currentObject.GetComponent<TilesData>();
         nextTileData.tile = nextTile;
 
-        ClearMatchAll(gameObject);
-
-
-        StartCoroutine(spawnBoxes.ReFill());
         Combo();
+        //ClearMatchAll(gameObject);
+        //StartCoroutine(spawnBoxes.ReFill());
+        //reset list
+        //currentMatchThis.Clear();
         StartCoroutine(spawnBoxes.ReFill());
 
         EnableAllColliders();
@@ -145,7 +147,7 @@ public class TileSwapper : MonoBehaviour
     {
         List<GameObject> matchingTiles = new List<GameObject>();
         RaycastHit2D hit2D = Physics2D.Raycast(gameObject.transform.position, castDir);
-        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(gameObject.GetComponent<TilesData>().tile.boxType))
+        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType==gameObject.GetComponent<TilesData>().tile.boxType)
         {
             if (!matchingTiles.Contains(hit2D.collider.gameObject))
                 matchingTiles.Add(hit2D.collider.gameObject);
@@ -155,31 +157,33 @@ public class TileSwapper : MonoBehaviour
             }
             hit2D = Physics2D.Raycast(transform.position, castDir);
         }
+
         return matchingTiles;
     }
-    private IEnumerator ClearMatch(GameObject gameObject, Vector2[] directions)
+    private void ClearMatch(GameObject gameObject, Vector2[] directions)
     {
         List<GameObject> matchingTiles = new List<GameObject>();
         for (int i = 0; i < directions.Length; i++)
         {
             matchingTiles.AddRange(FindMatches(gameObject, directions[i]));
         }
-        if (matchingTiles.Count >= 2)
+        currentMatchThis = matchingTiles;
+        if (currentMatchThis.Count >= 2)
         {
-            foreach (GameObject @object in matchingTiles)
-            {
-                yield return new WaitForSeconds(spawnBoxes.shiftingTileDelay / matchingTiles.Count);
-                @object.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
-                Debug.LogError(@object.name + "," + gameObject.name);
-            }
-            matchFound = true;
+            //foreach (GameObject @object in currentMatchThis)
+            //{
+            //    yield return new WaitForSeconds(spawnBoxes.shiftingTileDelay/ currentMatchThis.Count);
+            //    //@object.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();
+            //    //Debug.LogError(@object.name + "," + gameObject.name);
+            //}
+            //matchFound = true;
         }
     }
     private void ClearMatchAll(GameObject gameObject)
     {
 
-        StartCoroutine(ClearMatch(gameObject, new Vector2[] { Vector2.up, Vector2.down }));//vertical
-        StartCoroutine(ClearMatch(gameObject, new Vector2[] { Vector2.left, Vector2.right }));//horizontal
+       ClearMatch(gameObject, new Vector2[] { Vector2.up, Vector2.down });//vertical
+       ClearMatch(gameObject, new Vector2[] { Vector2.left, Vector2.right });//horizontal
         if (this.matchFound)
         {
             gameObject.GetComponent<TilesData>().tile = new BoxesData.TypeNPrefab();

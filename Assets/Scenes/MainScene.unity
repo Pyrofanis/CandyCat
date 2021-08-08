@@ -305,4 +305,4 @@ MonoBehaviour:
     selected: 0
   typeNPrefabs: []
   avainableTiles: []
-  shiftingTileDelay: 0.5
+  shiftingTileDelay: 1
