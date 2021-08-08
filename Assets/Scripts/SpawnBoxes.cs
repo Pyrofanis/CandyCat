@@ -15,9 +15,9 @@ public class SpawnBoxes : MonoBehaviour
     [HideInInspector]
     [SerializeField]
     private List<BoxesData.TypeNPrefab> avainableTiles;
+
     private BoxesData.TypeNPrefab previousLeft;
     private BoxesData.TypeNPrefab prebiousBellow;
-    private BoxesData.TypeNPrefab nextAbove;
 
     [Header("Time for Shifting Delay")]
     [Range(0,1)]
@@ -85,12 +85,6 @@ public class SpawnBoxes : MonoBehaviour
         }
         avainableTiles.Remove(previousLeft);
         avainableTiles.Remove(prebiousBellow);
-        if (reshifting&&y+1<gameArray.y)
-        {
-            nextAbove = arrayList[x, y + 1];
-            if (avainableTiles.Count>1)
-            avainableTiles.Remove(nextAbove);
-        }
     }
 
     public IEnumerator  ReFill()
@@ -118,10 +112,6 @@ public class SpawnBoxes : MonoBehaviour
                 }
             }
         }
-    }
-    private void Shifting(int x,int y)
-    {
-
     }
     private void OnDrawGizmos()
     {

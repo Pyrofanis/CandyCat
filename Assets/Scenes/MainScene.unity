@@ -251,6 +251,8 @@ GameObject:
   m_Component:
   - component: {fileID: 581780719}
   - component: {fileID: 581780720}
+  - component: {fileID: 581780718}
+  - component: {fileID: 581780721}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -258,6 +260,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &581780718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581780717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8806268423f340b4898583a0f83e0f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dbgC:
+    prefab: {fileID: 0}
+    currentObject: {fileID: 0}
+    sprite: {fileID: 0}
+    boxType: 0
+    selected: 0
+  dbgN:
+    prefab: {fileID: 0}
+    currentObject: {fileID: 0}
+    sprite: {fileID: 0}
+    boxType: 0
+    selected: 0
 --- !u!4 &581780719
 Transform:
   m_ObjectHideFlags: 0
@@ -306,3 +332,15 @@ MonoBehaviour:
   typeNPrefabs: []
   avainableTiles: []
   shiftingTileDelay: 1
+--- !u!114 &581780721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581780717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb99e569510ec504fb60387d8bf9d2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
