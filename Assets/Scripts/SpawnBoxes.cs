@@ -17,11 +17,11 @@ public class SpawnBoxes : MonoBehaviour
     private List<BoxesData.TypeNPrefab> avainableTiles;
     private BoxesData.TypeNPrefab previousLeft;
     private BoxesData.TypeNPrefab prebiousBellow;
+    private BoxesData.TypeNPrefab nextAbove;
 
     [Header("Time for Shifting Delay")]
-    [SerializeField]
     [Range(0,1)]
-    private float shiftingTileDelay;
+    public float shiftingTileDelay;
 
 
     public static BoxesData.TypeNPrefab[,] arrayList;
@@ -43,7 +43,7 @@ public class SpawnBoxes : MonoBehaviour
 
 
                 //randomize and remove unwanted
-                 Randomizer(x, y);
+                 Randomizer(x, y,false);
 
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
@@ -64,7 +64,7 @@ public class SpawnBoxes : MonoBehaviour
             }
         }
     }
-    private void Randomizer(int x,int y)
+    private void Randomizer(int x,int y,bool reshifting)
     {
         //prepare available tiles
         avainableTiles.Clear();
@@ -85,19 +85,27 @@ public class SpawnBoxes : MonoBehaviour
         }
         avainableTiles.Remove(previousLeft);
         avainableTiles.Remove(prebiousBellow);
-
+        if (reshifting&&y+1<gameArray.y)
+        {
+            nextAbove = arrayList[x, y + 1];
+            if (avainableTiles.Count>1)
+            avainableTiles.Remove(nextAbove);
+        }
     }
 
     public IEnumerator  ReFill()
     {
-        yield return new WaitForSeconds(shiftingTileDelay);
         for (int x = 0; x < gameArray.x; x++)
         {
+            yield return new WaitForSeconds(shiftingTileDelay/4);
+
             for (int y = 0; y < gameArray.y; y++)
             {
+                yield return new WaitForSeconds(shiftingTileDelay/4);
+
                 if (arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
                 {
-                    Randomizer(x, y);
+                    Randomizer(x, y,true);
 
                     int index = Random.Range(0, avainableTiles.Count);
                     GameObject currentPrefab = avainableTiles[index].prefab;
@@ -110,6 +118,10 @@ public class SpawnBoxes : MonoBehaviour
                 }
             }
         }
+    }
+    private void Shifting(int x,int y)
+    {
+
     }
     private void OnDrawGizmos()
     {

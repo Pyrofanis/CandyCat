@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameArray:
     x: 4
-    y: 10
+    y: 8
   Prefabs:
   - prefab: {fileID: 871467619298775616, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
     currentObject: {fileID: 0}
@@ -305,4 +305,4 @@ MonoBehaviour:
     selected: 0
   typeNPrefabs: []
   avainableTiles: []
-  shiftingTileDelay: 0.1
+  shiftingTileDelay: 0.5
