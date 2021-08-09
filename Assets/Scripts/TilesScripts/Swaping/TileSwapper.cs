@@ -26,6 +26,10 @@ public class TileSwapper : MonoBehaviour
         {
             Swap(TileSelection.current, TileSelection.next,currentCombos,nextCombos);
         }
+        else
+        {
+            CantSwap(TileSelection.current);
+        }
     }
     private void Swap(BoxesData.TypeNPrefab current,BoxesData.TypeNPrefab next,List<BoxesData.TypeNPrefab> currentList, List<BoxesData.TypeNPrefab> nextList)
     {
@@ -43,5 +47,11 @@ public class TileSwapper : MonoBehaviour
 
         ResetTiles.ResetTilesColider();
         ResetTiles.ResetSelections();
+    }
+    private void CantSwap(BoxesData.TypeNPrefab current)
+    {
+        current.currentObject.GetComponent<Animator>().Play("CantSwipe");
+        ResetTiles.ResetSelections();
+        ResetTiles.ResetTilesColider();
     }
 }

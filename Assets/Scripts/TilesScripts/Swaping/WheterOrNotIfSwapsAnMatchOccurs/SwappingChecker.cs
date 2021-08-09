@@ -6,18 +6,6 @@ public class SwappingChecker : MonoBehaviour
 {
     private static Vector2[] horizontal = new Vector2[] { Vector2.left, Vector2.right };
     private static Vector2[] vertical = new Vector2[] { Vector2.up, Vector2.down };
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private static List<BoxesData.TypeNPrefab> FindMatches(BoxesData.TypeNPrefab wantedType,GameObject castRaysFrom,Vector2 direction)
     {
         List<BoxesData.TypeNPrefab> matches=new List<BoxesData.TypeNPrefab>();

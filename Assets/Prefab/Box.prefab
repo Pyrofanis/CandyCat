@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 871467619298775619}
   - component: {fileID: 8457361288500939956}
   - component: {fileID: 9221831292745885219}
+  - component: {fileID: 6124281690074731961}
   m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
@@ -150,7 +151,6 @@ MonoBehaviour:
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 0
-    selected: 0
 --- !u!114 &9221831292745885219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +163,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f389bf3aae847754fb73a4a52251e401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6124281690074731961
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871467619298775616}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0eb263c6f1383974498d6fc60ea7b135, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
