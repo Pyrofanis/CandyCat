@@ -18,15 +18,14 @@ public class SwappingChecker : MonoBehaviour
     {
         
     }
-    private static List<BoxesData.TypeNPrefab> FindMatches(GameObject wantedTypeOBJ,GameObject castRaysFrom,Vector2 direction)
+    private static List<BoxesData.TypeNPrefab> FindMatches(BoxesData.TypeNPrefab wantedType,GameObject castRaysFrom,Vector2 direction)
     {
         List<BoxesData.TypeNPrefab> matches=new List<BoxesData.TypeNPrefab>();
-        BoxesData.TypeNPrefab wantedTypeType = wantedTypeOBJ.GetComponent<TilesData>().tile;
         RaycastHit2D hit2D = Physics2D.Raycast(castRaysFrom.transform.position, direction);
 
-        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(wantedTypeType.boxType))
+        while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(wantedType.boxType))
         {
-            if (!matches.Contains(hit2D.collider.GetComponent<TilesData>().tile))
+            if (!matches.Contains(hit2D.collider.GetComponent<TilesData>().tile)&&hit2D.collider.gameObject!=wantedType.currentObject)
                 matches.Add(hit2D.collider.GetComponent<TilesData>().tile);
             else
                 hit2D.collider.enabled = false;         
@@ -37,25 +36,32 @@ public class SwappingChecker : MonoBehaviour
         return matches;
 
     }
-    private static List<BoxesData.TypeNPrefab> MatchesDimensional(GameObject wantedTypeOBJ, GameObject castRaysFrom, Vector2[] directions)
+    private static List<BoxesData.TypeNPrefab> MatchesDimensional(BoxesData.TypeNPrefab wantedType, GameObject castRaysFrom, Vector2[] directions)
     {
         List<BoxesData.TypeNPrefab> matchesInThisDimension = new List<BoxesData.TypeNPrefab>();
         foreach(Vector2 dir in directions)
         {
-            matchesInThisDimension.AddRange(FindMatches(wantedTypeOBJ, castRaysFrom, dir));
+            matchesInThisDimension.AddRange(FindMatches(wantedType, castRaysFrom, dir));
         }
+        //foreach (BoxesData.TypeNPrefab type in matchesInThisDimension)
+        //{
+        //    Debug.Log(type.currentObject.name);
+        //}
         return matchesInThisDimension;
     }
-    public static List<BoxesData.TypeNPrefab> CombinationsFound(GameObject wantedTypeOBJ, GameObject castRaysFrom)
+    public static List<BoxesData.TypeNPrefab> CombinationsFound(BoxesData.TypeNPrefab wantedType, GameObject castRaysFrom)
     {
         List<BoxesData.TypeNPrefab> combinations = new List<BoxesData.TypeNPrefab>();
-        if (MatchesDimensional(wantedTypeOBJ, castRaysFrom, horizontal).Count >= 2)
+        List<BoxesData.TypeNPrefab> horizontalCombo = MatchesDimensional(wantedType, castRaysFrom, horizontal);
+        List<BoxesData.TypeNPrefab> verticalCombo = MatchesDimensional(wantedType, castRaysFrom, vertical);
+
+        if (horizontalCombo.Count >= 2)
         {
-            combinations.AddRange(MatchesDimensional(wantedTypeOBJ, castRaysFrom, horizontal));
+            combinations.AddRange(horizontalCombo);
         }
-        if (MatchesDimensional(wantedTypeOBJ, castRaysFrom, vertical).Count >= 2)
+        if (verticalCombo.Count >= 2)
         {
-            combinations.AddRange(MatchesDimensional(wantedTypeOBJ, castRaysFrom, vertical));
+            combinations.AddRange(verticalCombo);
         }
         return combinations;
     }
