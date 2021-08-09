@@ -115,6 +115,6 @@ public class SpawnBoxes : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + new Vector3(gameArray.x, gameArray.y) / 2, new Vector3(gameArray.x, gameArray.y));
+        Gizmos.DrawWireCube(transform.position+ new Vector3(gameArray.x, gameArray.y) / 2, new Vector3(gameArray.x, gameArray.y) + Prefabs[0].prefab.transform.localScale);
     }
 }
