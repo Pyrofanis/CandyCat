@@ -4,18 +4,7 @@ using UnityEngine;
 
 public class ClearMatches : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public static void ClearCombo(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab nextType)
+    public static void ClearCurrentMatch(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab nextType)
     {
         if (currentList.Count >= 2)
         {

@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class AdjustentTiles : MonoBehaviour
 {
-private static Vector2[] castDir = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right }; 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    private static Vector2[] castDir = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right }; 
     // Update is called once per frame
     void Update()
     {

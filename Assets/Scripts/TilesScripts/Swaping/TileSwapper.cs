@@ -20,8 +20,8 @@ public class TileSwapper : MonoBehaviour
     }
     private void areSelectionsViable()
     {
-        List<BoxesData.TypeNPrefab> currentCombos = SwappingChecker.CombinationsFound(TileSelection.current, TileSelection.next.currentObject);
-        List<BoxesData.TypeNPrefab> nextCombos = SwappingChecker.CombinationsFound(TileSelection.next, TileSelection.current.currentObject);
+        List<BoxesData.TypeNPrefab> currentCombos = SwappingCheckerNMatches.CombinationsFound(TileSelection.current, TileSelection.next.currentObject);
+        List<BoxesData.TypeNPrefab> nextCombos = SwappingCheckerNMatches.CombinationsFound(TileSelection.next, TileSelection.current.currentObject);
         if (currentCombos.Count >= 2)
         {
             Swap(TileSelection.current, TileSelection.next,currentCombos,nextCombos);
@@ -42,8 +42,8 @@ public class TileSwapper : MonoBehaviour
         next.currentObject.GetComponent<TilesData>().tile.prefab = tempType.prefab;
         next.currentObject.GetComponent<TilesData>().tile.sprite = tempType.sprite;
 
-        ClearMatches.ClearCombo(currentList, TileSelection.next);
-        ClearMatches.ClearCombo(nextList, TileSelection.current);
+        ClearMatches.ClearCurrentMatch(currentList, TileSelection.next);
+        ClearMatches.ClearCurrentMatch(nextList, TileSelection.current);
 
         ResetTiles.ResetTilesColider();
         ResetTiles.ResetSelections();

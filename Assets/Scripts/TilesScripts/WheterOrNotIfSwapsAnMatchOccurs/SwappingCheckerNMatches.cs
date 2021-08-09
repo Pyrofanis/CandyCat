@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwappingChecker : MonoBehaviour
+public class SwappingCheckerNMatches : MonoBehaviour
 {
     private static Vector2[] horizontal = new Vector2[] { Vector2.left, Vector2.right };
     private static Vector2[] vertical = new Vector2[] { Vector2.up, Vector2.down };
@@ -31,10 +31,6 @@ public class SwappingChecker : MonoBehaviour
         {
             matchesInThisDimension.AddRange(FindMatches(wantedType, castRaysFrom, dir));
         }
-        //foreach (BoxesData.TypeNPrefab type in matchesInThisDimension)
-        //{
-        //    Debug.Log(type.currentObject.name);
-        //}
         return matchesInThisDimension;
     }
     public static List<BoxesData.TypeNPrefab> CombinationsFound(BoxesData.TypeNPrefab wantedType, GameObject castRaysFrom)

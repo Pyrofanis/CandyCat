@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AdjustentTiles),typeof(SwappingChecker),typeof(TileSwapper))]
+[RequireComponent(typeof(AdjustentTiles),typeof(SwappingCheckerNMatches),typeof(TileSwapper))]
 [RequireComponent(typeof(ClearMatches),typeof(ResetTiles),typeof(ShiftingTiles))]
 public class TileSelection : MonoBehaviour
 {
