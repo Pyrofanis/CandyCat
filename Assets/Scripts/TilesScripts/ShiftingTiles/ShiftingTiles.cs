@@ -5,13 +5,13 @@ using UnityEngine;
 public class ShiftingTiles : MonoBehaviour
 {
     public static bool shifts;
-    public bool isShiftingDbg;
+
     private static int nullInThatCollumn=0;
     // Update is called once per frame
     void Update()
     {
         ShiftDown();
-        isShiftingDbg = shifts;
+
     }
     private static void Shift(List<BoxesData.TypeNPrefab> collumnToShift,int nullObjects)
     {
@@ -26,13 +26,13 @@ public class ShiftingTiles : MonoBehaviour
                     collumnToShift[z + 1].currentObject.GetComponent<TilesData>().tile.prefab = null;
                     collumnToShift[z + 1].currentObject.GetComponent<TilesData>().tile.sprite = null;
                     collumnToShift[z + 1].currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
-                
+
+                    shifts = true;                
             }
         }
     }
     private static void FindNullInCollumn(int x,int initialY)
     {
-        shifts = true;
         List<BoxesData.TypeNPrefab> currentCollumn=new List<BoxesData.TypeNPrefab>();
        for (int y = initialY; y < SpawnBoxes.staticGameArray.y; y++)//epeidi tsekaris kai to apo epano toy prepei na einai entos ton orion
         {
@@ -44,7 +44,6 @@ public class ShiftingTiles : MonoBehaviour
              
         }
         Shift(currentCollumn, nullInThatCollumn);
-        shifts = false;
     }
     public static void ShiftDown()
     {
@@ -55,11 +54,13 @@ public class ShiftingTiles : MonoBehaviour
                 if (SpawnBoxes.arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
                 {
                     FindNullInCollumn(x, y);
+                    shifts = true;
                     break;
                 }
                 else
                 {
                     nullInThatCollumn = 0;
+                    shifts = false;
                 }
 
             }

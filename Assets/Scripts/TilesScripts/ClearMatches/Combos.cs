@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Combos : MonoBehaviour
 {
+
     public void Update()
     {
-        //if (!ShiftingTiles.shifts)
-        //    ClearCombos();
+        if (!ShiftingTiles.shifts)
+            ClearCombos();
     }
     public static void ClearCombos()
     {
         foreach (BoxesData.TypeNPrefab types in SpawnBoxes.arrayList)
         {
-            ClearMatches.ClearCurrentMatch(SwappingCheckerNMatches.CombinationsFound(types, types.currentObject),types,true);
+            List<BoxesData.TypeNPrefab> currentCombo = new List<BoxesData.TypeNPrefab>();
+            currentCombo = SwappingCheckerNMatches.CombinationsFound(types, types.currentObject);
+
+            if (types.boxType != BoxesData.BoxTypes.none)
+                ClearMatches.ClearCurrentMatch(currentCombo, types, true);
+
             ResetTiles.ResetTilesColider();
+
         }
     }
 }

@@ -37,7 +37,6 @@ public class TileSwapper : MonoBehaviour
         ClearMatches.ClearCurrentMatch(currentList, TileSelection.next,false);
         ClearMatches.ClearCurrentMatch(nextList, TileSelection.current,false);
 
-
         ResetTiles.ResetTilesColider();
         ResetTiles.ResetSelections();
     }
