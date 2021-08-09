@@ -23,7 +23,21 @@ public class TileSwapper : MonoBehaviour
         List<BoxesData.TypeNPrefab> currentCombos = SwappingChecker.CombinationsFound(TileSelection.current, TileSelection.next.currentObject);
         if (currentCombos.Count >= 2)
         {
-            canSwap = true;
+            Swap(TileSelection.current, TileSelection.next);
         }
+    }
+    private void Swap(BoxesData.TypeNPrefab current,BoxesData.TypeNPrefab next)
+    {
+        BoxesData.TypeNPrefab tempType = current;
+        current.currentObject.GetComponent<TilesData>().tile.boxType = next.boxType;
+        current.currentObject.GetComponent<TilesData>().tile.prefab = next.prefab;
+        current.currentObject.GetComponent<TilesData>().tile.sprite = next.sprite;
+
+        next.currentObject.GetComponent<TilesData>().tile.boxType = tempType.boxType;
+        next.currentObject.GetComponent<TilesData>().tile.prefab = tempType.prefab;
+        next.currentObject.GetComponent<TilesData>().tile.sprite = tempType.sprite;
+       
+        next = new BoxesData.TypeNPrefab();
+        current = new BoxesData.TypeNPrefab();
     }
 }

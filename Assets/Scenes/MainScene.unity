@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSwap: 0
-  dbgL: []
 --- !u!114 &493820706
 MonoBehaviour:
   m_ObjectHideFlags: 0
