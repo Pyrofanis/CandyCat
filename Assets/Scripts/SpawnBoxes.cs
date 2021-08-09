@@ -38,6 +38,10 @@ public class SpawnBoxes : MonoBehaviour
     {
         SpawnObjs(gameArray.x, gameArray.y);
     }
+    private void Update()
+    {
+        Refilling();
+    }
     private void SpawnObjs(int lengthX, int lengthY)
     {
         for (int x = 0; x < lengthX; x++)
@@ -47,7 +51,7 @@ public class SpawnBoxes : MonoBehaviour
 
 
                 //randomize and remove unwanted
-                 Randomizer(x, y,false);
+                 Randomizer(x, y);
 
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
@@ -68,7 +72,7 @@ public class SpawnBoxes : MonoBehaviour
             }
         }
     }
-    private void Randomizer(int x,int y,bool reshifting)
+    private void Randomizer(int x,int y)
     {
         //prepare available tiles
         avainableTiles.Clear();
@@ -89,6 +93,24 @@ public class SpawnBoxes : MonoBehaviour
         }
         avainableTiles.Remove(previousLeft);
         avainableTiles.Remove(prebiousBellow);
+    }
+    private void Refilling()
+    {
+        int y = gameArray.y - 1;
+        for (int x = 0; x < gameArray.x; x++)
+        {
+            if (arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
+            {
+                Randomizer(x, y);
+                int index = Random.Range(0, avainableTiles.Count);
+                GameObject currentPrefab = avainableTiles[index].prefab;
+                BoxesData.BoxTypes type = avainableTiles[index].boxType;
+                Sprite currentSprite = avainableTiles[index].sprite;
+                arrayList[x, y].currentObject.GetComponent<TilesData>().tile.sprite = currentSprite;
+                arrayList[x, y].currentObject.GetComponent<TilesData>().tile.prefab = currentPrefab;
+                arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = type;
+            }
+        }
     }
     private void OnDrawGizmos()
     {

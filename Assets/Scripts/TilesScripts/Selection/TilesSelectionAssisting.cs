@@ -20,6 +20,7 @@ public class TilesSelectionAssisting : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if(!ShiftingTiles.shifts)
         Selections();
     }
     private void Selections()
