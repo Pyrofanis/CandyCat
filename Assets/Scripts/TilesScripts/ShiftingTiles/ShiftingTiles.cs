@@ -11,7 +11,6 @@ public class ShiftingTiles : MonoBehaviour
     void Update()
     {
         ShiftDown();
-
     }
     private static void Shift(List<BoxesData.TypeNPrefab> collumnToShift,int nullObjects)
     {
@@ -55,7 +54,6 @@ public class ShiftingTiles : MonoBehaviour
                 if (SpawnBoxes.arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
                 {
                     FindNullInCollumn(x, y);
-                    //Debug.Log(x + "," + y);//here it works
                     break;
                 }
                 else

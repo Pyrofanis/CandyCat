@@ -16,7 +16,9 @@ public static class BoxesData
     public struct TypeNPrefab
     {
         public GameObject prefab;
+        [HideInInspector]
         public GameObject currentObject;//the current object to be changed /inital obj like inital pos used to work
+        [HideInInspector]
         public Sprite sprite;
         public BoxTypes boxType;
         public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType)

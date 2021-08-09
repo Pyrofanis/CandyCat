@@ -99,13 +99,13 @@ public class SpawnBoxes : MonoBehaviour
         int y = gameArray.y - 1;
         for (int x = 0; x < gameArray.x; x++)
         {
-            if (arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
+            if (arrayList[x, y].boxType==BoxesData.BoxTypes.none)
             {
                 Randomizer(x, y);
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
                 BoxesData.BoxTypes type = avainableTiles[index].boxType;
-                Sprite currentSprite = avainableTiles[index].sprite;
+                Sprite currentSprite = avainableTiles[index].prefab.GetComponent<SpriteRenderer>().sprite;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.sprite = currentSprite;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.prefab = currentPrefab;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = type;
