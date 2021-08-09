@@ -53,5 +53,6 @@ public class TileSwapper : MonoBehaviour
         current.currentObject.GetComponent<Animator>().Play("CantSwipe");
         ResetTiles.ResetSelections();
         ResetTiles.ResetTilesColider();
+        
     }
 }

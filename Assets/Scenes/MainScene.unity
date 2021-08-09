@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 493820704}
   - component: {fileID: 493820710}
   - component: {fileID: 493820709}
+  - component: {fileID: 493820711}
   m_Layer: 0
   m_Name: ScriptLogic
   m_TagString: Untagged
@@ -240,6 +241,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f3947042a9dd584baa93bb885006f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &493820711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493820703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87f2d1a421f5614ba2c4e78748bf991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
@@ -403,9 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694f2ad228642b246b13c8ef18519fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameArray:
-    x: 4
-    y: 8
+  gameArray: {x: 4, y: 8}
   Prefabs:
   - prefab: {fileID: 871467619298775616, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
     currentObject: {fileID: 0}

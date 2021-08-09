@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AdjustentTiles),typeof(SwappingChecker),typeof(TileSwapper))]
-[RequireComponent(typeof(ClearMatches),typeof(ResetTiles))]
+[RequireComponent(typeof(ClearMatches),typeof(ResetTiles),typeof(ShiftingTiles))]
 public class TileSelection : MonoBehaviour
 {
     public static BoxesData.TypeNPrefab current;

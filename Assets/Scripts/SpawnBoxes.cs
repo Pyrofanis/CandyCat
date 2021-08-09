@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnBoxes : MonoBehaviour
 {
     [SerializeField]
-    public BoxesData.GameArray gameArray;
+    public Vector2Int gameArray;
     [SerializeField]
     protected List<BoxesData.TypeNPrefab> Prefabs;
     [SerializeField]
@@ -23,12 +23,16 @@ public class SpawnBoxes : MonoBehaviour
     [Range(0,1)]
     public float shiftingTileDelay;
 
+    public static Vector2 staticGameArray;
+    public static float staticShiftingTileDelay;
 
     public static BoxesData.TypeNPrefab[,] arrayList;
     // Start is called before the first frame update
     void Awake()
     {
         arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
+        staticGameArray = gameArray;
+        staticShiftingTileDelay = shiftingTileDelay;
     }
     private void Start()
     {
@@ -85,33 +89,6 @@ public class SpawnBoxes : MonoBehaviour
         }
         avainableTiles.Remove(previousLeft);
         avainableTiles.Remove(prebiousBellow);
-    }
-
-    public IEnumerator  ReFill()
-    {
-        for (int x = 0; x < gameArray.x; x++)
-        {
-            yield return new WaitForSeconds(shiftingTileDelay/4);
-
-            for (int y = 0; y < gameArray.y; y++)
-            {
-                yield return new WaitForSeconds(shiftingTileDelay/4);
-
-                if (arrayList[x, y].boxType.Equals(BoxesData.BoxTypes.none))
-                {
-                    Randomizer(x, y,true);
-
-                    int index = Random.Range(0, avainableTiles.Count);
-                    GameObject currentPrefab = avainableTiles[index].prefab;
-                    BoxesData.BoxTypes boxTypes = avainableTiles[index].boxType;
-                    Sprite sprite = avainableTiles[index].prefab.GetComponent<SpriteRenderer>().sprite;
-                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.prefab = currentPrefab;
-                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = boxTypes;
-                    arrayList[x, y].currentObject.GetComponent<TilesData>().tile.sprite = sprite;
-                    arrayList[x, y].currentObject.GetComponent<Collider2D>().enabled = true;
-                }
-            }
-        }
     }
     private void OnDrawGizmos()
     {
