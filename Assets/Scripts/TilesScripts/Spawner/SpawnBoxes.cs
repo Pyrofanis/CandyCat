@@ -8,9 +8,14 @@ public class SpawnBoxes : MonoBehaviour
     public Vector2Int gameArray;
     [SerializeField]
     protected List<BoxesData.TypeNPrefab> Prefabs;
+
+    [Header("Backgroudn Prefab")]
+    [SerializeField]
+    private GameObject backgroundPrefab;
+
     [SerializeField]
     [Header("Active Prefabs In Scene")]
-    private List<BoxesData.TypeNPrefab> typeNPrefabs;
+    public  List<BoxesData.TypeNPrefab> activeTiles;
 
     [HideInInspector]
     [SerializeField]
@@ -23,15 +28,15 @@ public class SpawnBoxes : MonoBehaviour
     [Range(0,1)]
     public float shiftingTileDelay;
 
-    public static Vector2 staticGameArray;
+    public static Vector2Int staticGameArray;
     public static float staticShiftingTileDelay;
 
     public static BoxesData.TypeNPrefab[,] arrayList;
     // Start is called before the first frame update
     void Awake()
     {
-        arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
         staticGameArray = gameArray;
+        arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
         staticShiftingTileDelay = shiftingTileDelay;
     }
     private void Start()
@@ -40,6 +45,7 @@ public class SpawnBoxes : MonoBehaviour
     }
     private void Update()
     {
+        if (avainableTiles.Count>=gameArray.x*gameArray.y)
         Refilling();
     }
     private void SpawnObjs(int lengthX, int lengthY)
@@ -62,11 +68,12 @@ public class SpawnBoxes : MonoBehaviour
                 Sprite currentSprite = objectToEdit.GetComponent<SpriteRenderer>().sprite;
 
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
+                InstantiateBackground(x, y);
 
                 BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes);
                 tilesData.tile = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, currentSprite, boxTypes);
 
-                typeNPrefabs.Add(currentTypeNPrefab);
+                activeTiles.Add(currentTypeNPrefab);
                 arrayList[x, y] = currentTypeNPrefab;
 
             }
@@ -111,6 +118,10 @@ public class SpawnBoxes : MonoBehaviour
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = type;
             }
         }
+    }
+    private void InstantiateBackground(int x,int y)
+    {
+        GameObject background = Instantiate(backgroundPrefab, transform.position + new Vector3(x, y), Quaternion.identity, transform);
     }
     private void OnDrawGizmos()
     {

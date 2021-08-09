@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class TilesSelectionAssisting : MonoBehaviour
+public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
 {
     private TilesData tilesData;
     private SpriteRenderer spriteRenderer;
@@ -18,10 +19,10 @@ public class TilesSelectionAssisting : MonoBehaviour
     {
         SelectionIndexer();
     }
-    private void OnMouseDown()
+   void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        if(!ShiftingTiles.shifts)
-        Selections();
+        if (!ShiftingTiles.shifts)
+            Selections();
     }
     private void Selections()
     {

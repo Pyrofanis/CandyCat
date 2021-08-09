@@ -20,8 +20,6 @@ public class TileSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dbgC = current;
-        dbgN = next;
     }
 
 
