@@ -15,7 +15,7 @@ public class ClearMatches : MonoBehaviour
     {
         
     }
-    public static void ClearCombo(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab currentType)
+    public static void ClearCombo(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab nextType)
     {
         if (currentList.Count >= 2)
         {
@@ -25,9 +25,9 @@ public class ClearMatches : MonoBehaviour
                 currentList[i].currentObject.GetComponent<TilesData>().tile.prefab =null;
                 currentList[i].currentObject.GetComponent<TilesData>().tile.sprite =null;
             }
-            currentType.currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
-            currentType.currentObject.GetComponent<TilesData>().tile.prefab = null;
-            currentType.currentObject.GetComponent<TilesData>().tile.sprite = null;
+            nextType.currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
+            nextType.currentObject.GetComponent<TilesData>().tile.prefab = null;
+            nextType.currentObject.GetComponent<TilesData>().tile.sprite = null;
         }
 
     }

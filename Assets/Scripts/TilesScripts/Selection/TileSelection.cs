@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AdjustentTiles),typeof(SwappingChecker),typeof(TileSwapper))]
+[RequireComponent(typeof(ClearMatches),typeof(ResetTiles))]
 public class TileSelection : MonoBehaviour
 {
     public static BoxesData.TypeNPrefab current;
@@ -21,10 +22,6 @@ public class TileSelection : MonoBehaviour
         dbgC = current;
         dbgN = next;
     }
-    public static void ResetSelections()
-    {
-        current = new BoxesData.TypeNPrefab();
-        next = new BoxesData.TypeNPrefab();
-    }
+
 
 }
