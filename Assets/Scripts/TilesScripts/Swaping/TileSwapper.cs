@@ -34,8 +34,8 @@ public class TileSwapper : MonoBehaviour
         next.currentObject.GetComponent<TilesData>().tile.prefab = tempType.prefab;
         next.currentObject.GetComponent<TilesData>().tile.sprite = tempType.sprite;
 
-        ClearMatches.ClearCurrentMatch(currentList, TileSelection.next);
-        ClearMatches.ClearCurrentMatch(nextList, TileSelection.current);
+        ClearMatches.ClearCurrentMatch(currentList, TileSelection.next,false);
+        ClearMatches.ClearCurrentMatch(nextList, TileSelection.current,false);
 
 
         ResetTiles.ResetTilesColider();

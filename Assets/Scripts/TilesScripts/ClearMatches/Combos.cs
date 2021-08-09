@@ -13,7 +13,7 @@ public class Combos : MonoBehaviour
     {
         foreach (BoxesData.TypeNPrefab types in SpawnBoxes.arrayList)
         {
-            ClearMatches.ClearCurrentMatch(SwappingCheckerNMatches.CombinationsFound(types, types.currentObject),types);
+            ClearMatches.ClearCurrentMatch(SwappingCheckerNMatches.CombinationsFound(types, types.currentObject),types,true);
             ResetTiles.ResetTilesColider();
         }
     }
