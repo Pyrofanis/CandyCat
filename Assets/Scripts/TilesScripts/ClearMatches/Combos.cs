@@ -6,8 +6,8 @@ public class Combos : MonoBehaviour
 {
     public void Update()
     {
-        if (!ShiftingTiles.shifts)
-            ClearCombos();
+        //if (!ShiftingTiles.shifts)
+        //    ClearCombos();
     }
     public static void ClearCombos()
     {
