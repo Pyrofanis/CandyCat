@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Combos : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (!ShiftingTiles.shifts)
             ClearCombos();
     }
-    private void ClearCombos()
+    public static void ClearCombos()
     {
         foreach (BoxesData.TypeNPrefab types in SpawnBoxes.arrayList)
         {
             ClearMatches.ClearCurrentMatch(SwappingCheckerNMatches.CombinationsFound(types, types.currentObject),types);
+            ResetTiles.ResetTilesColider();
         }
     }
 }

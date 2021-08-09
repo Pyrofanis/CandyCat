@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class TileSwapper : MonoBehaviour
 {
-    public bool canSwap;//in its place you will put the swap void in its else play a trigger animation
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -44,6 +36,7 @@ public class TileSwapper : MonoBehaviour
 
         ClearMatches.ClearCurrentMatch(currentList, TileSelection.next);
         ClearMatches.ClearCurrentMatch(nextList, TileSelection.current);
+
 
         ResetTiles.ResetTilesColider();
         ResetTiles.ResetSelections();

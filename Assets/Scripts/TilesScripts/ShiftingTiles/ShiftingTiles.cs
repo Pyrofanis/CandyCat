@@ -5,12 +5,13 @@ using UnityEngine;
 public class ShiftingTiles : MonoBehaviour
 {
     public static bool shifts;
-
+    public bool isShiftingDbg;
     private static int nullInThatCollumn=0;
     // Update is called once per frame
     void Update()
     {
         ShiftDown();
+        isShiftingDbg = shifts;
     }
     private static void Shift(List<BoxesData.TypeNPrefab> collumnToShift,int nullObjects)
     {

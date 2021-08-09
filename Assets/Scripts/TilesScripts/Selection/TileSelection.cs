@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AdjustentTiles),typeof(SwappingCheckerNMatches),typeof(TileSwapper))]
 [RequireComponent(typeof(ClearMatches),typeof(ResetTiles),typeof(ShiftingTiles))]
+[RequireComponent(typeof(Combos))]
 public class TileSelection : MonoBehaviour
 {
     public static BoxesData.TypeNPrefab current;

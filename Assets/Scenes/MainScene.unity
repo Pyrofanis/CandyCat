@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 493820710}
   - component: {fileID: 493820709}
   - component: {fileID: 493820711}
+  - component: {fileID: 493820712}
   m_Layer: 0
   m_Name: ScriptLogic
   m_TagString: Untagged
@@ -180,7 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f43a78efd0d19b4f82fabe75e7e527a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSwap: 0
 --- !u!114 &493820706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +253,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d87f2d1a421f5614ba2c4e78748bf991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isShiftingDbg: 0
+--- !u!114 &493820712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493820703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77aa19d9d0f7cd149aa9b9456e68d75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
