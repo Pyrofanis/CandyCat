@@ -19,15 +19,12 @@ public static class BoxesData
         public GameObject currentObject;//the current object to be changed /inital obj like inital pos used to work
         public Sprite sprite;
         public BoxTypes boxType;
-        public bool selected;
-
-        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType, bool newBool)
+        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType)
         {
             this.prefab = newOBJ;
             this.currentObject = newCurrentObj;
             this.sprite = newSprite;
             this.boxType = newType;
-            this.selected = newBool;
 
         }
     }

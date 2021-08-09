@@ -160,13 +160,11 @@ MonoBehaviour:
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 0
-    selected: 0
   dbgN:
     prefab: {fileID: 0}
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 0
-    selected: 0
 --- !u!114 &493820705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,17 +385,14 @@ MonoBehaviour:
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 1
-    selected: 0
   - prefab: {fileID: 3988468825958285679, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 2
-    selected: 0
   - prefab: {fileID: 5922364730598015139, guid: 0e503c5dfbaca9d4fa1028097158bf6c, type: 3}
     currentObject: {fileID: 0}
     sprite: {fileID: 0}
     boxType: 3
-    selected: 0
   typeNPrefabs: []
   avainableTiles: []
   shiftingTileDelay: 1

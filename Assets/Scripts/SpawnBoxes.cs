@@ -55,8 +55,8 @@ public class SpawnBoxes : MonoBehaviour
 
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,false);
-                tilesData.tile = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, currentSprite, boxTypes,false);
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes);
+                tilesData.tile = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, currentSprite, boxTypes);
 
                 typeNPrefabs.Add(currentTypeNPrefab);
                 arrayList[x, y] = currentTypeNPrefab;

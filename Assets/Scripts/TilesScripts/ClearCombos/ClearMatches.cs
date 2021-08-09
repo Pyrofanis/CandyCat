@@ -15,14 +15,19 @@ public class ClearMatches : MonoBehaviour
     {
         
     }
-    public static void ClearCombo(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab currentTipe)
+    public static void ClearCombo(List<BoxesData.TypeNPrefab> currentList,BoxesData.TypeNPrefab currentType)
     {
         if (currentList.Count >= 2)
         {
-            //for (int i = 0; i < currentList.Count; i++)
-            //{
-            //    currentList[i].boxType = BoxesData.BoxTypes.none;
-            //}
+            for (int i = 0; i < currentList.Count; i++)
+            {
+                currentList[i].currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
+                currentList[i].currentObject.GetComponent<TilesData>().tile.prefab =null;
+                currentList[i].currentObject.GetComponent<TilesData>().tile.sprite =null;
+            }
+            currentType.currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
+            currentType.currentObject.GetComponent<TilesData>().tile.prefab = null;
+            currentType.currentObject.GetComponent<TilesData>().tile.sprite = null;
         }
 
     }

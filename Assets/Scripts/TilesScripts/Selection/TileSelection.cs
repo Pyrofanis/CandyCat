@@ -21,5 +21,10 @@ public class TileSelection : MonoBehaviour
         dbgC = current;
         dbgN = next;
     }
+    public static void ResetSelections()
+    {
+        current = new BoxesData.TypeNPrefab();
+        next = new BoxesData.TypeNPrefab();
+    }
 
 }
