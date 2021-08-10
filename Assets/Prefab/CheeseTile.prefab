@@ -81,8 +81,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3988468825958285679, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
       propertyPath: m_Name
-      value: Triangle
+      value: CheeseTile
       objectReference: {fileID: 0}
+    - target: {fileID: 4832170177905058540, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08922448788fb8048a3cbbf2f90e2c01, type: 3}
     - target: {fileID: 6685123627232353117, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
       propertyPath: _BoxType
       value: 2

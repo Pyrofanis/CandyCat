@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
 {
     private TilesData tilesData;
-    private SpriteRenderer spriteRenderer;
+    private Image img;
     // Start is called before the first frame update
     void Start()
     {
         tilesData = GetComponent<TilesData>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        img = GetComponent<Image>();
         ControllerSupport.inputActions.Controlls.Selection.performed +=_=> ControllerSelection();
     }
 
@@ -52,11 +53,11 @@ public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
     {
         if (TileSelection.current.Equals(tilesData.tile) || TileSelection.next.Equals(tilesData.tile))
         {
-            spriteRenderer.color = Color.gray;
+            img.color = Color.gray;
         }
         else
         {
-            spriteRenderer.color = Color.white;
+            img.color = Color.white;
         }
     }
 }

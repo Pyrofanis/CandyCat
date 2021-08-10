@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnBoxes : MonoBehaviour
 {
@@ -9,9 +10,7 @@ public class SpawnBoxes : MonoBehaviour
     [SerializeField]
     protected List<BoxesData.TypeNPrefab> Prefabs;
 
-    [Header("Backgroudn Prefab")]
-    [SerializeField]
-    private GameObject backgroundPrefab;
+
 
     [SerializeField]
     [Header("Active Prefabs In Scene")]
@@ -32,13 +31,12 @@ public class SpawnBoxes : MonoBehaviour
     public static float staticShiftingTileDelay;
 
     public static BoxesData.TypeNPrefab[,] arrayList;
-    public static GameObject[,] bgArrayList;
+
     // Start is called before the first frame update
     void Awake()
     {
         staticGameArray = gameArray;
         arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
-        bgArrayList = new GameObject[gameArray.x, gameArray.y];
         staticShiftingTileDelay = shiftingTileDelay;
     }
     private void Start()
@@ -66,10 +64,9 @@ public class SpawnBoxes : MonoBehaviour
                 GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity, this.transform);
                 objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
 
-                Sprite currentSprite = objectToEdit.GetComponent<SpriteRenderer>().sprite;
+                Sprite currentSprite = objectToEdit.GetComponent<Image>().sprite;
 
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
-                InstantiateBackground(x, y);
 
                 BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,new Vector2Int(x,y));
                 tilesData.tile = currentTypeNPrefab;
@@ -113,18 +110,14 @@ public class SpawnBoxes : MonoBehaviour
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
                 BoxesData.BoxTypes type = avainableTiles[index].boxType;
-                Sprite currentSprite = avainableTiles[index].prefab.GetComponent<SpriteRenderer>().sprite;
+                Sprite currentSprite = avainableTiles[index].prefab.GetComponent<Image>().sprite;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.sprite = currentSprite;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.prefab = currentPrefab;
                 arrayList[x, y].currentObject.GetComponent<TilesData>().tile.boxType = type;
             }
         }
     }
-    private void InstantiateBackground(int x,int y)
-    {
-        GameObject background = Instantiate(backgroundPrefab, transform.position + new Vector3(x, y), Quaternion.identity, transform);
-        bgArrayList[x, y] = background;
-    }
+ 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

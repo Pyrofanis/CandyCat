@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class BgTileIndicator : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    private Image img;
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        img = GetComponent<Image>();
     }
     private void Update()
     {
@@ -18,15 +19,15 @@ public class BgTileIndicator : MonoBehaviour
     {
         if (ControllerSupport.CurrentTileBgObj==null)
         {
-            spriteRenderer.color = Color.white;
+            img.color = Color.white;
         }
         else if (ControllerSupport.CurrentTileBgObj.Equals(gameObject))
         {
-            spriteRenderer.color = Color.green;
+            img.color = Color.green;
         }
         else
         {
-            spriteRenderer.color = Color.white;
+            img.color = Color.white;
         }
     }
 }

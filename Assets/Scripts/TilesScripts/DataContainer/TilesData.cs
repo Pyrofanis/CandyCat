@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //[RequireComponent(typeof(PlaceSwaper),typeof(AvailableLocs))]
 public class TilesData : MonoBehaviour
@@ -8,14 +9,14 @@ public class TilesData : MonoBehaviour
     //[HideInInspector]
     public BoxesData.TypeNPrefab tile;
 
-    private SpriteRenderer sprite;
+    private Image img;
 
 
     // Start is called before the first frame update
     void Start()
     {
 
-        sprite = GetComponent<SpriteRenderer>();
+        img = GetComponent<Image>();
     }
     private void Update()
     {
@@ -28,7 +29,7 @@ public class TilesData : MonoBehaviour
     }
     private void UpdateTile()
     {
-        sprite.sprite = tile.sprite;
+        img.sprite = tile.sprite;
         string coordsString = "(" + Mathf.RoundToInt(tile.objectCoords.x) + "," + Mathf.RoundToInt(tile.objectCoords.y) + ")";
         if (tile.prefab != null)
             gameObject.name = tile.prefab.name + coordsString;

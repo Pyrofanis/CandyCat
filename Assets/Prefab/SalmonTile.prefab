@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SalmonTile
       objectReference: {fileID: 0}
+    - target: {fileID: 8288631272070711788, guid: fa57ecdc88732f64184de988c685f375, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 11e33ad3c534c0b43aa583557c75f688, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa57ecdc88732f64184de988c685f375, type: 3}

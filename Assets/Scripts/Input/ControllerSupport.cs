@@ -34,7 +34,7 @@ public class ControllerSupport : MonoBehaviour
     {
         if (!mouse)
         {
-            CurrentTileBgObj = SpawnBoxes.bgArrayList[xRange(), yRange()];
+            CurrentTileBgObj = SpawnBackground.bgArrayList[xRange(), yRange()];
             CurrentTileObj = SpawnBoxes.arrayList[xRange(), yRange()];
         }
         else

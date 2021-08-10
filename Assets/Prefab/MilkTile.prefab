@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 871467619298775616, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
       propertyPath: m_Name
-      value: Circle
+      value: MilkTile
       objectReference: {fileID: 0}
     - target: {fileID: 871467619298775628, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
       propertyPath: m_RootOrder
@@ -75,5 +75,9 @@ PrefabInstance:
       propertyPath: _BoxType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8669043635649376707, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a95fda5772b855b41bd98e346d04df38, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac9b5f4d291e10f429cd9039c15b8605, type: 3}
