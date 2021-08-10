@@ -13,8 +13,6 @@ public class SpawnBoxes : MonoBehaviour
     [Header("Prefab Of Vertical Layout Ui")]
     private GameObject verticalPrefab;
 
-    [SerializeField]
-    [Header("Prefab Of Vertical Layout Ui")]
     private GameObject horizontalayout;
 
     [SerializeField]
@@ -89,8 +87,6 @@ public class SpawnBoxes : MonoBehaviour
         for (int x = 0; x < gameArray.x; x++)
         {
              currentVertical = Instantiate(verticalPrefab,transform.position+new Vector3(x,0),Quaternion.identity, horizontalayout.transform);
-            //currentVertical.GetComponent<RectTransform>().anchorMin = Vector3.zero;
-            //currentVertical.GetComponent<RectTransform>().anchorMax = Vector3.one;
             if (currentVertical!=null)
             verticalPrefabs.Add(currentVertical);
         }
@@ -139,6 +135,6 @@ public class SpawnBoxes : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position+ new Vector3(gameArray.x, gameArray.y) / 2, new Vector3(gameArray.x, gameArray.y) + Prefabs[0].prefab.transform.localScale);
+        Gizmos.DrawWireCube(transform.position+ new Vector3(gameArray.x, -gameArray.y) / 2, new Vector3(gameArray.x, gameArray.y) + Prefabs[0].prefab.transform.localScale);
     }
 }
