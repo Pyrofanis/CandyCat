@@ -9,8 +9,13 @@ public class SpawnBoxes : MonoBehaviour
     public Vector2Int gameArray;
     [SerializeField]
     protected List<BoxesData.TypeNPrefab> Prefabs;
+    [SerializeField]
+    [Header("Prefab Of Vertical Layout Ui")]
+    private GameObject verticalPrefab;
 
-
+    [SerializeField]
+    [Header("Prefab Of Vertical Layout Ui")]
+    private GameObject horizontalayout;
 
     [SerializeField]
     [Header("Active Prefabs In Scene")]
@@ -22,22 +27,22 @@ public class SpawnBoxes : MonoBehaviour
 
     private BoxesData.TypeNPrefab previousLeft;
     private BoxesData.TypeNPrefab prebiousBellow;
+    [HideInInspector]
+    [SerializeField]
+    private List<GameObject> verticalPrefabs;
 
-    [Header("Time for Shifting Delay")]
-    [Range(0,1)]
-    public float shiftingTileDelay;
 
     public static Vector2Int staticGameArray;
-    public static float staticShiftingTileDelay;
 
     public static BoxesData.TypeNPrefab[,] arrayList;
 
     // Start is called before the first frame update
     void Awake()
     {
+        horizontalayout=GetComponentInChildren<HorizontalLayoutGroup>().gameObject;
+        CreateVerticalPrefabs();
         staticGameArray = gameArray;
         arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
-        staticShiftingTileDelay = shiftingTileDelay;
     }
     private void Start()
     {
@@ -45,7 +50,8 @@ public class SpawnBoxes : MonoBehaviour
     }
     private void Update()
     {
-        Refilling();
+        if (activeTiles.Count >= gameArray.x * gameArray.y)
+            Refilling();
     }
     private void SpawnObjs(int lengthX, int lengthY)
     {
@@ -61,20 +67,32 @@ public class SpawnBoxes : MonoBehaviour
                 int index = Random.Range(0, avainableTiles.Count);
                 GameObject currentPrefab = avainableTiles[index].prefab;
                 BoxesData.BoxTypes boxTypes = avainableTiles[index].boxType;
-                GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity, this.transform);
+                GameObject objectToEdit = Instantiate(currentPrefab, transform.position + new Vector3(x, y), Quaternion.identity, verticalPrefabs[x].transform);
                 objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
 
                 Sprite currentSprite = objectToEdit.GetComponent<Image>().sprite;
 
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,new Vector2Int(x,y));
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,new Vector2Int(x, lengthY - 1 - y));
                 tilesData.tile = currentTypeNPrefab;
 
                 activeTiles.Add(currentTypeNPrefab);
-                arrayList[x, y] = currentTypeNPrefab;
+                arrayList[x, lengthY-1-y] = currentTypeNPrefab;
 
             }
+        }
+    }
+    private void CreateVerticalPrefabs()
+    {
+        GameObject currentVertical;
+        for (int x = 0; x < gameArray.x; x++)
+        {
+             currentVertical = Instantiate(verticalPrefab,transform.position+new Vector3(x,0),Quaternion.identity, horizontalayout.transform);
+            //currentVertical.GetComponent<RectTransform>().anchorMin = Vector3.zero;
+            //currentVertical.GetComponent<RectTransform>().anchorMax = Vector3.one;
+            if (currentVertical!=null)
+            verticalPrefabs.Add(currentVertical);
         }
     }
     private void Randomizer(int x,int y)
