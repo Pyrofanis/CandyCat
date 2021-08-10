@@ -12,6 +12,7 @@ public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
     {
         tilesData = GetComponent<TilesData>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ControllerSupport.inputActions.Controlls.Selection.performed +=_=> ControllerSelection();
     }
 
     // Update is called once per frame
@@ -23,6 +24,13 @@ public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
     {
         if (!ShiftingTiles.shifts)
             Selections();
+    }
+    private void ControllerSelection()
+    {
+        if (gameObject.Equals(ControllerSupport.CurrentTileObj.currentObject))
+        {
+            Selections();
+        }
     }
     private void Selections()
     {

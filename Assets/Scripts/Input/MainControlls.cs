@@ -65,6 +65,14 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseControll"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bfbf9ae-efcb-4803-9cbf-8af3fad1e414"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -202,6 +210,17 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a5b6c411-f228-4486-8f56-05e2df1ce6d7"",
+                    ""path"": ""<Touchscreen>/press"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b8d0fb91-a0cf-4a55-a7e2-a4489fed0a4f"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
@@ -287,6 +306,28 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e519d1ed-83aa-45cc-b5d7-ef836d4b17ab"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseControll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74fcdddd-7b2e-4c93-8165-42150c7364e3"",
+                    ""path"": ""<Touchscreen>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseControll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,6 +348,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
         m_Controlls_Escape = m_Controlls.FindAction("Escape", throwIfNotFound: true);
         m_Controlls_MoveUp = m_Controlls.FindAction("MoveUp", throwIfNotFound: true);
         m_Controlls_MoveDown = m_Controlls.FindAction("MoveDown", throwIfNotFound: true);
+        m_Controlls_MouseControll = m_Controlls.FindAction("MouseControll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -362,6 +404,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
     private readonly InputAction m_Controlls_Escape;
     private readonly InputAction m_Controlls_MoveUp;
     private readonly InputAction m_Controlls_MoveDown;
+    private readonly InputAction m_Controlls_MouseControll;
     public struct ControllsActions
     {
         private @MainControlls m_Wrapper;
@@ -372,6 +415,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
         public InputAction @Escape => m_Wrapper.m_Controlls_Escape;
         public InputAction @MoveUp => m_Wrapper.m_Controlls_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_Controlls_MoveDown;
+        public InputAction @MouseControll => m_Wrapper.m_Controlls_MouseControll;
         public InputActionMap Get() { return m_Wrapper.m_Controlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -399,6 +443,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @MoveDown.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveDown;
                 @MoveDown.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveDown;
                 @MoveDown.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveDown;
+                @MouseControll.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
+                @MouseControll.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
+                @MouseControll.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
             }
             m_Wrapper.m_ControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -421,6 +468,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @MoveDown.started += instance.OnMoveDown;
                 @MoveDown.performed += instance.OnMoveDown;
                 @MoveDown.canceled += instance.OnMoveDown;
+                @MouseControll.started += instance.OnMouseControll;
+                @MouseControll.performed += instance.OnMouseControll;
+                @MouseControll.canceled += instance.OnMouseControll;
             }
         }
     }
@@ -442,5 +492,6 @@ public class @MainControlls : IInputActionCollection, IDisposable
         void OnEscape(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
+        void OnMouseControll(InputAction.CallbackContext context);
     }
 }

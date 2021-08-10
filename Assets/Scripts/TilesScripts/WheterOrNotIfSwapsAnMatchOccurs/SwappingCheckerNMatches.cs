@@ -10,7 +10,6 @@ public class SwappingCheckerNMatches : MonoBehaviour
     {
         List<BoxesData.TypeNPrefab> matches=new List<BoxesData.TypeNPrefab>();
         RaycastHit2D hit2D = Physics2D.Raycast(castRaysFrom.transform.position, direction);
-
         while (hit2D.collider != null && hit2D.collider.GetComponent<TilesData>().tile.boxType.Equals(wantedType.boxType))
         {
             if (!matches.Contains(hit2D.collider.GetComponent<TilesData>().tile)&&hit2D.collider.gameObject!=wantedType.currentObject)

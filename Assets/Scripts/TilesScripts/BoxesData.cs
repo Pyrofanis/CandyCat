@@ -24,13 +24,15 @@ public static class BoxesData
         [HideInInspector]
         public Sprite sprite;
         public BoxTypes boxType;
-        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType)
+        [HideInInspector]
+        public Vector2Int objectCoords;
+        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType,Vector2Int newCoords)
         {
             this.prefab = newOBJ;
             this.currentObject = newCurrentObj;
             this.sprite = newSprite;
             this.boxType = newType;
-
+            this.objectCoords = newCoords;
         }
     }
     [System.Serializable]

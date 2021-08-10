@@ -11,16 +11,6 @@ public class TileSelection : MonoBehaviour
     public static BoxesData.TypeNPrefab next;
     [Header("Debug Values only")]
     public  BoxesData.TypeNPrefab dbgC,dbgN;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
 
 }

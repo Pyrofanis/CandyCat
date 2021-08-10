@@ -32,11 +32,13 @@ public class SpawnBoxes : MonoBehaviour
     public static float staticShiftingTileDelay;
 
     public static BoxesData.TypeNPrefab[,] arrayList;
+    public static GameObject[,] bgArrayList;
     // Start is called before the first frame update
     void Awake()
     {
         staticGameArray = gameArray;
         arrayList = new BoxesData.TypeNPrefab[gameArray.x, gameArray.y];
+        bgArrayList = new GameObject[gameArray.x, gameArray.y];
         staticShiftingTileDelay = shiftingTileDelay;
     }
     private void Start()
@@ -45,7 +47,6 @@ public class SpawnBoxes : MonoBehaviour
     }
     private void Update()
     {
-        if (avainableTiles.Count>=gameArray.x*gameArray.y)
         Refilling();
     }
     private void SpawnObjs(int lengthX, int lengthY)
@@ -70,8 +71,8 @@ public class SpawnBoxes : MonoBehaviour
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
                 InstantiateBackground(x, y);
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes);
-                tilesData.tile = new BoxesData.TypeNPrefab(currentPrefab, objectToEdit, currentSprite, boxTypes);
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,new Vector2Int(x,y));
+                tilesData.tile = currentTypeNPrefab;
 
                 activeTiles.Add(currentTypeNPrefab);
                 arrayList[x, y] = currentTypeNPrefab;
@@ -122,6 +123,7 @@ public class SpawnBoxes : MonoBehaviour
     private void InstantiateBackground(int x,int y)
     {
         GameObject background = Instantiate(backgroundPrefab, transform.position + new Vector3(x, y), Quaternion.identity, transform);
+        bgArrayList[x, y] = background;
     }
     private void OnDrawGizmos()
     {

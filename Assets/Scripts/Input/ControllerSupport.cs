@@ -5,32 +5,44 @@ using UnityEngine;
 public class ControllerSupport : MonoBehaviour
 {
     public static  MainControlls inputActions;
+    public static BoxesData.TypeNPrefab CurrentTileObj;
+    public static GameObject CurrentTileBgObj;
 
+    private  bool mouse;
 
-    private SpawnBoxes spawnBoxes;
     private int x;
     private int y;
 
     private void Awake()
     {
         inputActions = new MainControlls();
-        spawnBoxes = GameObject.FindObjectOfType<SpawnBoxes>();
+        mouse = true;
     }
     // Start is called before the first frame update
     void Start()
     {
         inputActions.Enable();
-        inputActions.Controlls.MoveLeft.performed += _ => DecreaseInt(x);
-        inputActions.Controlls.MoveRight.performed += _ => IncreaseInt(x);
-        inputActions.Controlls.MoveDown.performed += _ => DecreaseInt(y);
-        inputActions.Controlls.MoveUp.performed += _ => IncreaseInt(y);
+        inputActions.Controlls.MoveLeft.performed += _ => DecreaseInt(true);
+        inputActions.Controlls.MoveRight.performed += _ => IncreaseInt(true);
+        inputActions.Controlls.MoveDown.performed += _ => DecreaseInt(false);
+        inputActions.Controlls.MoveUp.performed += _ => IncreaseInt(false);
+        inputActions.Controlls.MouseControll.performed += _ => ActivateMouse();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (CanStartActions())
-        //    SpawnBoxes.bgArrayList[xRange(), yRange()].GetComponent<SpriteRenderer>().color = Color.green;
+        if (!mouse)
+        {
+            CurrentTileBgObj = SpawnBoxes.bgArrayList[xRange(), yRange()];
+            CurrentTileObj = SpawnBoxes.arrayList[xRange(), yRange()];
+        }
+        else
+        {
+            CurrentTileBgObj = null;
+            CurrentTileObj = new BoxesData.TypeNPrefab();
+        }
+
     }
     private int xRange()
     {
@@ -56,22 +68,25 @@ public class ControllerSupport : MonoBehaviour
             y = SpawnBoxes.staticGameArray.y - 1;
         }
 
-        return x;
+        return y;
     }
-    private void IncreaseInt(int intToIncrease)
+    private void IncreaseInt(bool horizontal)
     {
-        intToIncrease++;
+        if (horizontal) x++;
+        else y++;
+
+        mouse = false;
     }
-    private void DecreaseInt(int intToDecrease)
+    private void DecreaseInt(bool horizontal)
     {
-        intToDecrease--; 
+        if (horizontal)
+            x--;
+        else y--;
+
+        mouse = false;
     }
-    private bool CanStartActions()
+    private void ActivateMouse()
     {
-        if (spawnBoxes.activeTiles.Count >= SpawnBoxes.staticGameArray.x * SpawnBoxes.staticGameArray.y)
-        {
-            return true;
-        }
-        else return false;
+        mouse = true;
     }
 }

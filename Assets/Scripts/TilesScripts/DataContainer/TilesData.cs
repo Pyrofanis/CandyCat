@@ -24,13 +24,12 @@ public class TilesData : MonoBehaviour
     }
     private void UpdateMap()
     {
-        Vector2Int coords =Vector2Int.CeilToInt(transform.position);
-        SpawnBoxes.arrayList[coords.x, coords.y] = tile;
+        SpawnBoxes.arrayList[tile.objectCoords.x, tile.objectCoords.y] = tile;
     }
     private void UpdateTile()
     {
         sprite.sprite = tile.sprite;
-        string coordsString = "(" + Mathf.RoundToInt(transform.position.x) + "," + Mathf.RoundToInt(transform.position.y) + ")";
+        string coordsString = "(" + Mathf.RoundToInt(tile.objectCoords.x) + "," + Mathf.RoundToInt(tile.objectCoords.y) + ")";
         if (tile.prefab != null)
             gameObject.name = tile.prefab.name + coordsString;
         else gameObject.name = "Empty"+coordsString;

@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MouseControll",
+                    "type": "Button",
+                    "id": "6bfbf9ae-efcb-4803-9cbf-8af3fad1e414",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -189,6 +197,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a5b6c411-f228-4486-8f56-05e2df1ce6d7",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b8d0fb91-a0cf-4a55-a7e2-a4489fed0a4f",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -272,6 +291,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "MoveDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e519d1ed-83aa-45cc-b5d7-ef836d4b17ab",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseControll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74fcdddd-7b2e-4c93-8165-42150c7364e3",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseControll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
