@@ -69,10 +69,10 @@ public class SpawnBoxes : MonoBehaviour
                 objectToEdit.name = boxTypes.ToString() + "( " + x + "," + y + ")";
 
                 Sprite currentSprite = objectToEdit.GetComponent<Image>().sprite;
-
+                Sprite defaultBgSprite = currentPrefab.GetComponent<TilesData>().tile.defaultSprite;
                 TilesData tilesData = objectToEdit.GetComponent<TilesData>();
 
-                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite, boxTypes,new Vector2Int(x, lengthY - 1 - y));
+                BoxesData.TypeNPrefab currentTypeNPrefab = new BoxesData.TypeNPrefab(currentPrefab,objectToEdit,currentSprite,defaultBgSprite, boxTypes,new Vector2Int(x, lengthY - 1 - y));
                 tilesData.tile = currentTypeNPrefab;
 
                 activeTiles.Add(currentTypeNPrefab);

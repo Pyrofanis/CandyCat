@@ -28,7 +28,7 @@ public class TilesSelectionAssisting : MonoBehaviour, IPointerDownHandler
     }
     private void ControllerSelection()
     {
-        if (gameObject.Equals(ControllerSupport.CurrentTileObj.currentObject))
+        if (ControllerSupport.CurrentTileObj.currentObject !=null&& gameObject.Equals(ControllerSupport.CurrentTileObj.currentObject))
         {
             Selections();
         }

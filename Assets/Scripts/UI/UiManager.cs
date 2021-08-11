@@ -25,8 +25,12 @@ public class UiManager : MonoBehaviour
     }
     public void RestartScene()
     {
+        //mobileControlls html
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //both
         ScoreManager.score = 0;
+        //pc controlls
+        //Application.Quit();
     }
 
 }

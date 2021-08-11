@@ -23,14 +23,16 @@ public static class BoxesData
         public GameObject currentObject;//the current object to be changed /inital obj like inital pos used to work
         [HideInInspector]
         public Sprite sprite;
+        public Sprite defaultSprite;
         public BoxTypes boxType;
         [HideInInspector]
         public Vector2Int objectCoords;
-        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite, BoxTypes newType,Vector2Int newCoords)
+        public TypeNPrefab(GameObject newOBJ, GameObject newCurrentObj, Sprite newSprite,Sprite newDefaultSprite, BoxTypes newType,Vector2Int newCoords)
         {
             this.prefab = newOBJ;
             this.currentObject = newCurrentObj;
             this.sprite = newSprite;
+            this.defaultSprite = newDefaultSprite;
             this.boxType = newType;
             this.objectCoords = newCoords;
         }

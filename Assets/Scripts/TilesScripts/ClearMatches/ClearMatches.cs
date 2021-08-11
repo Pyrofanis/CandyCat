@@ -13,11 +13,11 @@ public class ClearMatches : MonoBehaviour
                 ScoreManager.AddScore(isItCombo);
                 currentList[i].currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
                 currentList[i].currentObject.GetComponent<TilesData>().tile.prefab =null;
-                currentList[i].currentObject.GetComponent<TilesData>().tile.sprite =null;
+                currentList[i].currentObject.GetComponent<TilesData>().tile.sprite = currentList[i].currentObject.GetComponent<TilesData>().tile.defaultSprite;
             }
             nextType.currentObject.GetComponent<TilesData>().tile.boxType = BoxesData.BoxTypes.none;
             nextType.currentObject.GetComponent<TilesData>().tile.prefab = null;
-            nextType.currentObject.GetComponent<TilesData>().tile.sprite = null;
+            nextType.currentObject.GetComponent<TilesData>().tile.sprite = nextType.currentObject.GetComponent<TilesData>().tile.defaultSprite;
         }
 
     }
