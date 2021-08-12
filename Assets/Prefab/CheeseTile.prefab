@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2632865245216084260, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632865245216084260, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 3988468825958285666, guid: 25cdfa244a012634fa1d0717ca53f3f4, type: 3}
       propertyPath: m_Sprite
       value: 

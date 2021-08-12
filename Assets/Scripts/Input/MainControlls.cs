@@ -73,6 +73,14 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""HelpButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdb76df7-157b-4f99-a9ce-863c44e73d5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -328,6 +336,28 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""action"": ""MouseControll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c310b66-a79b-4887-866a-da7444fde2b8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HelpButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1fc5bb4-f936-4e32-b0a3-c608ec798362"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HelpButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +379,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
         m_Controlls_MoveUp = m_Controlls.FindAction("MoveUp", throwIfNotFound: true);
         m_Controlls_MoveDown = m_Controlls.FindAction("MoveDown", throwIfNotFound: true);
         m_Controlls_MouseControll = m_Controlls.FindAction("MouseControll", throwIfNotFound: true);
+        m_Controlls_HelpButton = m_Controlls.FindAction("HelpButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,6 +436,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
     private readonly InputAction m_Controlls_MoveUp;
     private readonly InputAction m_Controlls_MoveDown;
     private readonly InputAction m_Controlls_MouseControll;
+    private readonly InputAction m_Controlls_HelpButton;
     public struct ControllsActions
     {
         private @MainControlls m_Wrapper;
@@ -416,6 +448,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
         public InputAction @MoveUp => m_Wrapper.m_Controlls_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_Controlls_MoveDown;
         public InputAction @MouseControll => m_Wrapper.m_Controlls_MouseControll;
+        public InputAction @HelpButton => m_Wrapper.m_Controlls_HelpButton;
         public InputActionMap Get() { return m_Wrapper.m_Controlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,6 +479,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @MouseControll.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
                 @MouseControll.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
                 @MouseControll.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMouseControll;
+                @HelpButton.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
+                @HelpButton.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
+                @HelpButton.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
             }
             m_Wrapper.m_ControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -471,6 +507,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @MouseControll.started += instance.OnMouseControll;
                 @MouseControll.performed += instance.OnMouseControll;
                 @MouseControll.canceled += instance.OnMouseControll;
+                @HelpButton.started += instance.OnHelpButton;
+                @HelpButton.performed += instance.OnHelpButton;
+                @HelpButton.canceled += instance.OnHelpButton;
             }
         }
     }
@@ -493,5 +532,6 @@ public class @MainControlls : IInputActionCollection, IDisposable
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
         void OnMouseControll(InputAction.CallbackContext context);
+        void OnHelpButton(InputAction.CallbackContext context);
     }
 }
