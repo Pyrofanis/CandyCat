@@ -10,18 +10,33 @@ public class ScoreManager : MonoBehaviour
     [Range(0,5)]
     private float scoreAdjuster;
 
+    [Header("HighScoreData")]
+    [SerializeField]
+    private HighScoreScriptable highScoreSO;
+
     public static float score;
+    public static HighScoreScriptable staticHighScoreSO;
     private static float staticScoreAdj;
+
+
+    private void Awake()
+    {
+        HighScoreSaveData data = HighScoreSaveSystem.LoadData();
+        if (data.HighScore>-highScoreSO.highScore)
+        highScoreSO.highScore = data.HighScore;
+        staticHighScoreSO = highScoreSO;
+    }
     // Start is called before the first frame update
     void Start()
     {
         staticScoreAdj = scoreAdjuster;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        AddHighScore();
     }
     public static void AddScore(bool isItCombo)
     {
@@ -29,5 +44,16 @@ public class ScoreManager : MonoBehaviour
             score += staticScoreAdj;
         else
             score += staticScoreAdj * 2;
+    }
+    private void AddHighScore()
+    {
+        if (score >= staticHighScoreSO.highScore)
+        {
+            staticHighScoreSO.highScore = score;
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        HighScoreSaveSystem.SaveData(highScoreSO);
     }
 }

@@ -11,6 +11,15 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI scoreTXT;
 
+    [Header("Scores TXT")]
+    [SerializeField]
+    private TextMeshProUGUI highScoreTXT;
+
+
+    [Header("Scores TXT")]
+    [SerializeField]
+    private TextMeshProUGUI timerTXT;
+
     [Header("Scores String")]
     [SerializeField]
     private string scoresString;
@@ -21,7 +30,8 @@ public class UiManager : MonoBehaviour
     private bool enableTutorial;
     private void Start()
     {
-        ControllerSupport.inputActions.Controlls.Escape.performed +=_=> RestartScene();
+        ControllerSupport.inputActions.Controlls.ResetButtons.performed +=_=> RestartScene();
+        ControllerSupport.inputActions.Controlls.ExitButton.performed +=_=> QuitGame();
         ControllerSupport.inputActions.Controlls.HelpButton.performed +=_=> EnableTutorial();
         enableTutorial = false;
     }
@@ -29,6 +39,8 @@ public class UiManager : MonoBehaviour
     {
         scoreTXT.text = scoresString + ScoreManager.score.ToString("0");
 
+        highScoreTXT.text = ScoreManager.staticHighScoreSO.highScore.ToString("0");
+        timerTXT.text = EndingConditions.uiTimerIndicator.ToString("0.0");
     }
     private void EnableTutorial()
     {
@@ -42,8 +54,12 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //both
         ScoreManager.score = 0;
+
+    }
+    public void QuitGame()
+    {
         //pc controlls
-        //Application.Quit();
+        Application.Quit();
     }
 
 }

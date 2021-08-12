@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Escape",
+                    "name": "ResetButtons",
                     "type": "Button",
                     "id": "f06c38ac-9d1a-4cf2-9666-c6a2f7971a38",
                     "expectedControlType": "Button",
@@ -65,6 +65,14 @@
                     "name": "HelpButton",
                     "type": "Button",
                     "id": "fdb76df7-157b-4f99-a9ce-863c44e73d5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ExitButton",
+                    "type": "Button",
+                    "id": "3e5e6113-ebbf-4e94-86f5-fb3aec81e8e3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -188,7 +196,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MainControllScheamsAllPlatforms",
-                    "action": "Escape",
+                    "action": "ResetButtons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -199,7 +207,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "MainControllScheamsAllPlatforms",
-                    "action": "Escape",
+                    "action": "ResetButtons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -210,7 +218,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Escape",
+                    "action": "ResetButtons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -343,6 +351,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "HelpButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6bd3418d-ed26-4496-bf13-3e3f0df1ddff",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a1954c7-051f-4b2b-bc89-6c9afd17b4d6",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

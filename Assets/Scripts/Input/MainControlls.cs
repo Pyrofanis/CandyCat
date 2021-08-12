@@ -43,7 +43,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Escape"",
+                    ""name"": ""ResetButtons"",
                     ""type"": ""Button"",
                     ""id"": ""f06c38ac-9d1a-4cf2-9666-c6a2f7971a38"",
                     ""expectedControlType"": ""Button"",
@@ -78,6 +78,14 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""name"": ""HelpButton"",
                     ""type"": ""Button"",
                     ""id"": ""fdb76df7-157b-4f99-a9ce-863c44e73d5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ExitButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e5e6113-ebbf-4e94-86f5-fb3aec81e8e3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -201,7 +209,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MainControllScheamsAllPlatforms"",
-                    ""action"": ""Escape"",
+                    ""action"": ""ResetButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -212,7 +220,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""MainControllScheamsAllPlatforms"",
-                    ""action"": ""Escape"",
+                    ""action"": ""ResetButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -223,7 +231,7 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Escape"",
+                    ""action"": ""ResetButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -358,6 +366,28 @@ public class @MainControlls : IInputActionCollection, IDisposable
                     ""action"": ""HelpButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bd3418d-ed26-4496-bf13-3e3f0df1ddff"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a1954c7-051f-4b2b-bc89-6c9afd17b4d6"",
+                    ""path"": ""<Touchscreen>/press"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -375,11 +405,12 @@ public class @MainControlls : IInputActionCollection, IDisposable
         m_Controlls_MoveLeft = m_Controlls.FindAction("MoveLeft", throwIfNotFound: true);
         m_Controlls_MoveRight = m_Controlls.FindAction("MoveRight", throwIfNotFound: true);
         m_Controlls_Selection = m_Controlls.FindAction("Selection", throwIfNotFound: true);
-        m_Controlls_Escape = m_Controlls.FindAction("Escape", throwIfNotFound: true);
+        m_Controlls_ResetButtons = m_Controlls.FindAction("ResetButtons", throwIfNotFound: true);
         m_Controlls_MoveUp = m_Controlls.FindAction("MoveUp", throwIfNotFound: true);
         m_Controlls_MoveDown = m_Controlls.FindAction("MoveDown", throwIfNotFound: true);
         m_Controlls_MouseControll = m_Controlls.FindAction("MouseControll", throwIfNotFound: true);
         m_Controlls_HelpButton = m_Controlls.FindAction("HelpButton", throwIfNotFound: true);
+        m_Controlls_ExitButton = m_Controlls.FindAction("ExitButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -432,11 +463,12 @@ public class @MainControlls : IInputActionCollection, IDisposable
     private readonly InputAction m_Controlls_MoveLeft;
     private readonly InputAction m_Controlls_MoveRight;
     private readonly InputAction m_Controlls_Selection;
-    private readonly InputAction m_Controlls_Escape;
+    private readonly InputAction m_Controlls_ResetButtons;
     private readonly InputAction m_Controlls_MoveUp;
     private readonly InputAction m_Controlls_MoveDown;
     private readonly InputAction m_Controlls_MouseControll;
     private readonly InputAction m_Controlls_HelpButton;
+    private readonly InputAction m_Controlls_ExitButton;
     public struct ControllsActions
     {
         private @MainControlls m_Wrapper;
@@ -444,11 +476,12 @@ public class @MainControlls : IInputActionCollection, IDisposable
         public InputAction @MoveLeft => m_Wrapper.m_Controlls_MoveLeft;
         public InputAction @MoveRight => m_Wrapper.m_Controlls_MoveRight;
         public InputAction @Selection => m_Wrapper.m_Controlls_Selection;
-        public InputAction @Escape => m_Wrapper.m_Controlls_Escape;
+        public InputAction @ResetButtons => m_Wrapper.m_Controlls_ResetButtons;
         public InputAction @MoveUp => m_Wrapper.m_Controlls_MoveUp;
         public InputAction @MoveDown => m_Wrapper.m_Controlls_MoveDown;
         public InputAction @MouseControll => m_Wrapper.m_Controlls_MouseControll;
         public InputAction @HelpButton => m_Wrapper.m_Controlls_HelpButton;
+        public InputAction @ExitButton => m_Wrapper.m_Controlls_ExitButton;
         public InputActionMap Get() { return m_Wrapper.m_Controlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -467,9 +500,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @Selection.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnSelection;
                 @Selection.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnSelection;
                 @Selection.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnSelection;
-                @Escape.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnEscape;
+                @ResetButtons.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnResetButtons;
+                @ResetButtons.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnResetButtons;
+                @ResetButtons.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnResetButtons;
                 @MoveUp.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveUp;
                 @MoveUp.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveUp;
                 @MoveUp.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnMoveUp;
@@ -482,6 +515,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @HelpButton.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
                 @HelpButton.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
                 @HelpButton.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnHelpButton;
+                @ExitButton.started -= m_Wrapper.m_ControllsActionsCallbackInterface.OnExitButton;
+                @ExitButton.performed -= m_Wrapper.m_ControllsActionsCallbackInterface.OnExitButton;
+                @ExitButton.canceled -= m_Wrapper.m_ControllsActionsCallbackInterface.OnExitButton;
             }
             m_Wrapper.m_ControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -495,9 +531,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @Selection.started += instance.OnSelection;
                 @Selection.performed += instance.OnSelection;
                 @Selection.canceled += instance.OnSelection;
-                @Escape.started += instance.OnEscape;
-                @Escape.performed += instance.OnEscape;
-                @Escape.canceled += instance.OnEscape;
+                @ResetButtons.started += instance.OnResetButtons;
+                @ResetButtons.performed += instance.OnResetButtons;
+                @ResetButtons.canceled += instance.OnResetButtons;
                 @MoveUp.started += instance.OnMoveUp;
                 @MoveUp.performed += instance.OnMoveUp;
                 @MoveUp.canceled += instance.OnMoveUp;
@@ -510,6 +546,9 @@ public class @MainControlls : IInputActionCollection, IDisposable
                 @HelpButton.started += instance.OnHelpButton;
                 @HelpButton.performed += instance.OnHelpButton;
                 @HelpButton.canceled += instance.OnHelpButton;
+                @ExitButton.started += instance.OnExitButton;
+                @ExitButton.performed += instance.OnExitButton;
+                @ExitButton.canceled += instance.OnExitButton;
             }
         }
     }
@@ -528,10 +567,11 @@ public class @MainControlls : IInputActionCollection, IDisposable
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
         void OnSelection(InputAction.CallbackContext context);
-        void OnEscape(InputAction.CallbackContext context);
+        void OnResetButtons(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveDown(InputAction.CallbackContext context);
         void OnMouseControll(InputAction.CallbackContext context);
         void OnHelpButton(InputAction.CallbackContext context);
+        void OnExitButton(InputAction.CallbackContext context);
     }
 }
