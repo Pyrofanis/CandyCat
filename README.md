@@ -2,8 +2,7 @@
 
 My atempt at making a candy crash like game
 verry simplistic doesent contain any power ups
-
-everything under assets with the exception of unity plugins and specifially 
+Tmpro and unity plugins
 [https://github.com/Pyrofanis/CandyCat/tree/main/Assets/TextMesh%20Pro] follow their authors license.
 
 scripts,scriptables,animations,scenes and prefabs are distributed under GPL v2.0
