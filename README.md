@@ -2,6 +2,7 @@
 
 My atempt at making a candy crash like game
 verry simplistic doesent contain any power ups
+
 Tmpro and unity plugins
 [https://github.com/Pyrofanis/CandyCat/tree/main/Assets/TextMesh%20Pro] follow their authors license.
 
