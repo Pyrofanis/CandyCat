@@ -10,3 +10,5 @@ scripts,scriptables,animations,scenes and prefabs are distributed under GPL v3.0
 
 Sprites are distributed under creative commons[CC BY-SA]with reference to the author pyrofanis
 and the programs used libresprite,asesprite
+
+Sprites are inspired by 3nill
